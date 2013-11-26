@@ -1,0 +1,5 @@
+.vagrant
+*.out.txt
+continuent-tungsten*
+tungsten-replicator*
+Vagrantfile
