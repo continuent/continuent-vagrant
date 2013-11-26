@@ -14,17 +14,5 @@ host { "db8": ip => "192.168.11.108"}
 class { 'continuent_install' :
   installMysql => true,
   installSSHKeys => true,
-  require => [Class[firewall]]
+  require => Class[firewall]
 }
-
-#package { "percona-release":
-#  provider => "rpm",
-#  ensure => present,
-#  source => "http://www.percona.com/downloads/percona-release/percona-release-0.0-1.${architecture}.rpm",
-#  require => Class["continuent_install"],
-#}
-
-#package { "percona-xtrabackup-20" :
-#  ensure => present,
-#  require => [Package[percona-release], Package[mysql-server]]
-#}

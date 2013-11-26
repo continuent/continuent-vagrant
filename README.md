@@ -31,6 +31,12 @@ Installing your first cluster
         $ localhost> vagrant ssh db1
 4. 
 
+        $ db1> sudo su - tungsten
+5. 
+
+        $ db1> cd /opt/continuent/software/continuent-tungsten-2.0.1-751
+4. 
+
         $ db1> ./tools/tpm configure defaults \
         --user=tungsten \
         --install-directory=/opt/continuent \
