@@ -30,6 +30,12 @@ This directory builds a set of VMs that may be used for easily testing Continuen
 1. Copy the Vagrantfile.ec2 file to Vagrantfile
 1. Update all fields in Vagrantfile to match your environment
 
+## Known Issues with EC2
+
+### sudo: sorry, you must have a tty to run sudo
+
+This can happen if the provisioning process runs to soon after the server starts. Just run `vagrant provision` and it will try again.
+
 # Starting the boxes the first time
 
 Run the `relaunch.sh` script to launch all VMs and provision them in parallel. After starting the boxes the first time, you may use the `vagrant suspend` and `vagrant resume` commands.
