@@ -1,7 +1,10 @@
-vagrant_continuent
-==================
-
 This directory builds a set of VMs that may be used for easily testing Continuent Tungsten solutions.
+
+# Downloading
+
+    $ localhost> git clone git@github.com:continuent/continuent-vagrant.git
+    $ localhost> cd continuent-vagrant
+    $ localhost> git submodule update --init
 
 # Using VirtualBox
 
@@ -11,11 +14,11 @@ This directory builds a set of VMs that may be used for easily testing Continuen
 
 ## Install a 32-bit base box
 
-    shell> vagrant box add centos-64-i386 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-i386-v20130731.box
+    $ localhost> vagrant box add centos-64-i386 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-i386-v20130731.box
 
 ## Install a 64-bit base box
 
-    shell> vagrant box add centos-64-x64 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130731.box
+    $ localhost> vagrant box add centos-64-x64 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130731.box
     
 # Using EC2
 
