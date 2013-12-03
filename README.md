@@ -1,4 +1,4 @@
-This directory builds a set of VMs that may be used for easily testing Continuent Tungsten solutions.
+This directory builds a set of VMs that may be used for easily testing Continuent Tungsten solutions. You will need to have [vagrant](http://www.vagrantup.com/) installed before you proceed.
 
 # Downloading
 
