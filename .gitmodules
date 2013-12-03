@@ -7,3 +7,6 @@
 [submodule "modules/stdlib"]
 	path = modules/stdlib
 	url = https://github.com/puppetlabs/puppetlabs-stdlib.git
+[submodule "modules/ec2_hosts"]
+	path = modules/ec2_hosts
+	url = git@github.com:continuent/ec2_hosts.git
