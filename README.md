@@ -31,6 +31,7 @@ This directory builds a set of VMs that may be used for easily testing Continuen
         $ localhost> vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
 1. Copy the Vagrantfile.ec2 file to Vagrantfile
 1. Update fields at the top of Vagrantfile to match your environment
+2. Update the GROUP value if you are working with multiple continuent-vagrant directories
 
 ## Known Issues with EC2
 
