@@ -1,3 +1,9 @@
+ACCESS_KEY = "REPLACE_VALUE"
+SECRET_ACCESS_KEY = "REPLACE_VALUE"
+SSH_KEYPAIR = "REPLACE_VALUE"
+SSH_PRIVATE_KEY = "REPLACE_VALUE"
+GROUP = File.basename(Dir.getwd)
+
 Vagrant.configure("2") do |vcfg|
 	(1..4).each{|i|
 		name = "db#{i}".to_sym()
@@ -5,30 +11,37 @@ Vagrant.configure("2") do |vcfg|
 			config.vm.box = "dummy"
 		
 			config.vm.provider :aws do |aws, override|
-				aws.access_key_id = "ACCESS_KEY_ID"
-				aws.secret_access_key = "SECRET_ACCESS_KEY"
-				aws.keypair_name = "EC2_KEYPAIR_NAME"
+				aws.access_key_id = ACCESS_KEY
+				aws.secret_access_key = SECRET_ACCESS_KEY
+				aws.keypair_name = SSH_KEYPAIR
+				
+				aws.tags = {
+					Name: "#{name.to_s()}.#{GROUP}",
+					VagrantGroup: GROUP,
+					Vagrant: 1,
+					CreatedAt: Time.now.strftime('%Y-%m-%dT%l:%M:%S')
+				}
 	
 				# Amazon Linux AMI in us-east-1	
 				aws.ami = "ami-83e4bcea"
 				# Disable the requiretty setting and install puppet
 				aws.user_data = "#!/bin/bash\nperl -pi -e 's/^Defaults[ ]*requiretty/#Defaults requiretty/' /etc/sudoers\nyum install -y puppet"
 		
-				aws.elastic_ip = true
-				aws.private_ip_address = "192.168.11.10#{i}"
-				aws.subnet_id = "VPC_SUBNET_ID"
-		
 				override.ssh.username = "ec2-user"
-				override.ssh.private_key_path = "PRIVATE_KEY_PATH"
-			end
-		
-			config.vm.provision "puppet" do |puppet|
-				puppet.options = ""
-				puppet.module_path = "modules"
-				puppet.facter = {
-					"vagrant" => "1",
-					"fqdn" => "db#{i}"
-				}
+				override.ssh.private_key_path = SSH_PRIVATE_KEY
+				
+				config.vm.provision "puppet" do |puppet|
+					puppet.options = ""
+					puppet.module_path = "modules"
+					puppet.facter = {
+						"vagrant" => "1",
+						"fqdn" => name.to_s(),
+						"aws_access_key" => ACCESS_KEY,
+						"aws_secret_access_key" => SECRET_ACCESS_KEY,
+						"ec2_tag_group_key" => "VagrantGroup",
+						"ec2_tag_group_value" => GROUP
+					}
+				end
 			end
 		end
 	}

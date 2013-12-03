@@ -23,6 +23,7 @@ IS_AWS=`grep vm.box Vagrantfile | grep dummy | wc -l`
 if [ $IS_AWS -eq 1 ]
 then
   vagrant up --no-provision --provider=aws
+	sleep 5
 else
   vagrant up --no-provision
 fi

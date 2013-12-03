@@ -22,8 +22,7 @@ This directory builds a set of VMs that may be used for easily testing Continuen
     
 # Using EC2
 
-1. Create an EC2 VPC that uses '192.168.11.0/24' as the CIDR
-1. Make sure you will be allowed to allocate 4 Elastic IPs. There is a default limit of 5 so you may need to request more from Amazon. Vagrant will not release the Elastic IPs when shutting down machines so you must go in and do that manually. It also will not reuse un-associated Elastic IPs so make sure the list is empty before starting.
+1. Make sure the 'default' security group allows SSH access from your machine
 1. Install the vagrant-aws plugin. This will have issues on some versions of OS X.
 
         $ localhost> vagrant plugin install vagrant-aws     
@@ -31,13 +30,13 @@ This directory builds a set of VMs that may be used for easily testing Continuen
 
         $ localhost> vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
 1. Copy the Vagrantfile.ec2 file to Vagrantfile
-1. Update all fields in Vagrantfile to match your environment
+1. Update fields at the top of Vagrantfile to match your environment
 
 ## Known Issues with EC2
 
 ### sudo: sorry, you must have a tty to run sudo
 
-This can happen if the provisioning process runs to soon after the server starts. Just run `vagrant provision` and it will try again.
+This can happen if the provisioning process runs to soon after the server starts. Just run `provision.sh` and it will try again.
 
 # Starting the boxes the first time
 
@@ -46,6 +45,9 @@ Run the `relaunch.sh` script to launch all VMs and provision them in parallel. A
 # Installing your first cluster
 
 1. Download the Continuent Tungsten RPM into the vagrant_continuent directory
+2. 
+
+        $ localhost> ./provision.sh
 2. 
 
         $ localhost> ./run.sh sudo rpm -i /vagrant/continuent-tungsten-2.0.1-751.noarch.rpm 
