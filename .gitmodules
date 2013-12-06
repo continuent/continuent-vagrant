@@ -10,3 +10,9 @@
 [submodule "modules/ec2_hosts"]
 	path = modules/ec2_hosts
 	url = git@github.com:continuent/ec2_hosts.git
+[submodule "modules/ntp"]
+	path = modules/ntp
+	url = https://github.com/puppetlabs/puppetlabs-ntp.git
+[submodule "modules/java"]
+	path = modules/java
+	url = https://github.com/puppetlabs/puppetlabs-java.git

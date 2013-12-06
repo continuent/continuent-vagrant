@@ -7,10 +7,12 @@ IFS=" "
 cd `dirname $0` 
 parallel_provision() {
     while read box; do
-        echo "Provisioning '$box'. Output will be in: $box.out.txt" 1>&2
+				rm -f $box.out.txt
+				rm -f $box.out.log
+        echo "Provisioning '$box'. Output will be in: $box.out.log" 1>&2
         echo $box
     done | xargs -P $MAX_PROCS -I"BOXNAME" \
-        sh -c 'vagrant provision BOXNAME >BOXNAME.out.txt 2>&1 || echo "Error Occurred: BOXNAME"'
+        sh -c 'vagrant provision BOXNAME >BOXNAME.out.log 2>&1 || echo "Error Occurred: BOXNAME"'
 }
  
 ## -- main -- ##

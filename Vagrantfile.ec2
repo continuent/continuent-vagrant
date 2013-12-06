@@ -26,6 +26,7 @@ Vagrant.configure("2") do |vcfg|
 				aws.ami = "ami-83e4bcea"
 				# Disable the requiretty setting and install puppet
 				aws.user_data = "#!/bin/bash\nperl -pi -e 's/^Defaults[ ]*requiretty/#Defaults requiretty/' /etc/sudoers\nyum install -y puppet"
+				aws.instance_type = "m1.small"
 		
 				override.ssh.username = "ec2-user"
 				override.ssh.private_key_path = SSH_PRIVATE_KEY
