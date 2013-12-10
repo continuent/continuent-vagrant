@@ -11,6 +11,7 @@ This directory builds a set of VMs that may be used for easily testing Continuen
 1. Download a VirtualBox image using either the 32-bit or 64-bit images below
 1. Copy the Vagrantfile.vbox file to Vagrantfile
 1. Update the Vagrantfile 'config.vm.box' value if you are using 64-bit
+2. Run the launch.sh script
 
 ## Install a 32-bit base box
 
@@ -32,6 +33,7 @@ This directory builds a set of VMs that may be used for easily testing Continuen
 1. Copy the Vagrantfile.ec2 file to Vagrantfile
 1. Update fields at the top of Vagrantfile to match your environment
 2. Update the GROUP value if you are working with multiple continuent-vagrant directories
+3. Run the launch.sh script
 
 ## Known Issues with EC2
 
