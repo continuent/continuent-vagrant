@@ -87,6 +87,8 @@ Run the `relaunch.sh` script to launch all VMs and provision them in parallel. A
 6. 
 
         $ db1> ./tools/tpm install
-7. Once you are finished with the instances
 
+Once you are finished with the instances
+
+7. 
        $ localhost> vagrant destroy
