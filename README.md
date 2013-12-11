@@ -41,6 +41,10 @@ This directory builds a set of VMs that may be used for easily testing Continuen
 
 This can happen if the provisioning process runs to soon after the server starts. Just run `provision.sh` and it will try again.
 
+### /usr/lib/ruby/1.9.1/rubygems/custom_require.rb:36:in `require': cannot load such file -- mkmf (LoadError)
+
+This occurs when installing the vagrant-aws plugin on some Ubuntu versions. To resolve install the ruby1.9.1-dev package
+
 # Starting the boxes the first time
 
 Run the `relaunch.sh` script to launch all VMs and provision them in parallel. After starting the boxes the first time, you may use the `vagrant suspend` and `vagrant resume` commands.
