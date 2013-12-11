@@ -90,6 +90,4 @@ Run the `relaunch.sh` script to launch all VMs and provision them in parallel. A
 
 Once you are finished with the instances
 
-1. 
-
-       $ localhost> vagrant destroy
+    $ localhost> vagrant destroy
