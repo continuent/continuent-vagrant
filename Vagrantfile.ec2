@@ -1,7 +1,14 @@
+#AWS Access and Secret Key for the AWS Account
 ACCESS_KEY = "REPLACE_VALUE"
 SECRET_ACCESS_KEY = "REPLACE_VALUE"
+
+#AWS Keypair name to use in the launched EC2 instance
 SSH_KEYPAIR = "REPLACE_VALUE"
+
+#Name of the local private SSH key to use to connect to the EC2 Instances
 SSH_PRIVATE_KEY = "REPLACE_VALUE"
+
+#Used to tag EC2 instances, use a unique name if sharing an AWS account
 GROUP = File.basename(Dir.getwd)
 
 Vagrant.configure("2") do |vcfg|
