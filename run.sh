@@ -14,7 +14,7 @@ parallel() {
         $COMMAND
 }
  
-HOSTS=`vagrant status | grep running | awk -F" " '{print $1}'`
+HOSTS=`vagrant status | grep -e 'running (' | awk -F" " '{print $1}'`
 echo $HOSTS | parallel
 
 IFS=$OIFS
