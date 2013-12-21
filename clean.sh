@@ -45,5 +45,17 @@ then
 		mysql -BN -e 'RESET MASTER' >/dev/null 2>&1
 	fi
 else
-	./run.sh sudo /vagrant/clean.sh --i-am-sure
+	if [ "$1" == "-y" ]
+	then
+		./run.sh sudo /vagrant/clean.sh --i-am-sure
+	else
+		echo "This will empty Tungsten directories except for the contents of software."
+		echo "The script will also reset all Tungsten schemas and the test schema."
+		read -p "Are you sure? [y|N] " -r
+		REPLY=`echo $REPLY | tr '[:upper:]' '[:lower:]'`
+		if [[ $REPLY =~ ^(yes|y)$ ]]
+		then
+		    ./run.sh sudo /vagrant/clean.sh --i-am-sure
+		fi
+	fi
 fi
