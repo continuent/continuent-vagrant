@@ -18,19 +18,23 @@ parallel_provision() {
 ## -- main -- ##
 
 
-vagrant destroy -f 
+vagrant destroy -f $*
 # start boxes sequentially to avoid vbox explosions
 
 IS_AWS=`grep vm.box Vagrantfile | grep dummy | wc -l`
 if [ $IS_AWS -eq 1 ]
 then
-  vagrant up --no-provision --provider=aws
+  vagrant up --no-provision --provider=aws $*
 	sleep 5
 else
-  vagrant up --no-provision
+  vagrant up --no-provision $*
 fi
 
-HOSTS=`vagrant status | grep -e 'running (' | awk -F" " '{print $1}'`
+if [ "$*" == "" ]; then
+	HOSTS=`vagrant status | grep -e 'running (' | awk -F" " '{print $1}'`
+else
+	HOSTS=`echo $* | tr " " "\n"`
+fi
 echo $HOSTS | parallel_provision
 
 IFS=$OIFS
