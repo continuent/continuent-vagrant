@@ -44,6 +44,9 @@ This can happen if the provisioning process runs to soon after the server starts
 ### /usr/lib/ruby/1.9.1/rubygems/custom_require.rb:36:in `require': cannot load such file -- mkmf (LoadError)
 
 This occurs when installing the vagrant-aws plugin on some Ubuntu versions. To resolve install the ruby1.9.1-dev package
+on Centos/Redhat install
+
+       sudo yum install -y gcc ruby-devel libxml2 libxml2-devel libxslt libxslt-devel
 
 # Starting the boxes the first time
 
