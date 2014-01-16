@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
  
 MAX_PROCS=4
 
