@@ -17,6 +17,7 @@ This is an example of setting up Multi-Site Multi-Master using Virtualbox. You c
 
     $ localhost> cd ~/msmm
     $ localhost> vagrant ssh db1
+    $ db1> alias multi_trepctl=/opt/replicator/tungsten/tungsten-replicator/scripts/multi_trepctl
     $ db1> multi_trepctl --by-service
     $ db1> multi_trepctl --role=master heartbeat
     $ db1> multi_trepctl --by-service
