@@ -1,6 +1,9 @@
 [submodule "modules/continuent_install"]
 	path = modules/continuent_install
 	url = https://github.com/continuent/continuent_install.git
+[submodule "modules/continuent_oracle"]
+	path = modules/continuent_oracle
+	url = https://github.com/continuent/continuent_oracle.git
 [submodule "modules/firewall"]
 	path = modules/firewall
 	url = https://github.com/puppetlabs/puppetlabs-firewall.git
