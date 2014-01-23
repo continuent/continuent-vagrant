@@ -12,6 +12,10 @@ class vagrant_hosts {
 		class { "ec2_hosts":
 			include_short_hostname => true,
 		}
+		
+		exec { "resize_root":
+			command => "/sbin/resize2fs /dev/xvda1",
+		}
 	}
 }
 
