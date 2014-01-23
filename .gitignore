@@ -1,5 +1,6 @@
 .vagrant
 *.out.txt
+*.out.log
 continuent-tungsten*
 tungsten-replicator*
 Vagrantfile

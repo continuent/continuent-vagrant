@@ -21,6 +21,10 @@ This directory builds a set of VMs that may be used for easily testing Continuen
 
     $ localhost> vagrant box add centos-64-x64 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130731.box
     
+## Install a large base box
+
+    $ localhost> vagrant box add centos-64-large http://share.agile.ly/centos-6.4.box
+    
 # Using EC2
 
 1. Make sure the 'default' security group allows SSH access from your machine
