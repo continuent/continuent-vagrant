@@ -14,6 +14,10 @@ This process will start a 3-node cluster using 32-bit Virtualbox images.
     
 You can repeat this process with any of the examples subdirectories. View the README in that directory for more information. The launch.sh script will start the images and install the software. If you would like to do a manual install of Tungsten, remove 'clusterData => $clusterData,' from the manifests/default.pp file.
 
+Once you are finished with the instances
+
+    $ localhost> vagrant destroy -f
+
 # Using a 64-bit base box
 
 1. Download the 64-bit box
@@ -47,54 +51,3 @@ This occurs when installing the vagrant-aws plugin on some Ubuntu versions. To r
 on Centos/Redhat install
 
        sudo yum install -y gcc ruby-devel libxml2 libxml2-devel libxslt libxslt-devel
-
-# Starting the boxes the first time
-
-Run the `relaunch.sh` script to launch all VMs and provision them in parallel. After starting the boxes the first time, you may use the `vagrant suspend` and `vagrant resume` commands.
-
-# Installing your first cluster
-
-1. Download the Continuent Tungsten RPM into the vagrant_continuent directory
-2. 
-
-        $ localhost> ./provision.sh
-2. 
-
-        $ localhost> ./run.sh sudo rpm -i /vagrant/continuent-tungsten-2.0.1-751.noarch.rpm 
-3. 
-
-        $ localhost> vagrant ssh db1
-4. 
-
-        $ db1> sudo su - tungsten
-5. 
-
-        $ db1> cd /opt/continuent/software/continuent-tungsten-2.0.1-751
-4. 
-
-        $ db1> ./tools/tpm configure defaults \
-        --user=tungsten \
-        --install-directory=/opt/continuent \
-        --replication-user=tungsten \
-        --replication-password=secret \
-        --replication-port=13306 \
-        --application-user=app_user \
-        --application-password=secret \
-        --application-port=3306 \
-        --application-readonly-port=3307 \
-        --start-and-report \
-        --mysql-connectorj-path=/opt/mysql/mysql-connector-java-5.1.26-bin.jar \
-        '--profile-script=~/.bash_profile'
-5. 
-
-        $ db1> ./tools/tpm configure demo \
-        --master=db1 \
-        --slaves=db2,db3,db4 \
-        --connectors=db1,db2,db3,db4
-6. 
-
-        $ db1> ./tools/tpm install
-
-Once you are finished with the instances
-
-    $ localhost> vagrant destroy
