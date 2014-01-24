@@ -1,12 +1,11 @@
 # Installation
 
     $ localhost> cd ~
-    $ localhost> git clone git@github.com:continuent/continuent-vagrant.git sor
-    $ localhost> cd ~/sor
+    $ localhost> git clone git@github.com:continuent/continuent-vagrant.git all
+    $ localhost> cd ~/all
     $ localhost> git submodule update --init
-    $ localhost> cp examples/SOR/default.pp ./manifests
+    $ localhost> cp examples/AllMasters/default.pp ./manifests
     $ localhost> cp examples/Vagrantfile.3.vbox ./Vagrantfile
-    $ localhost> cp ~/continuent-tungsten-2.0.1-1002.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
     $ localhost> ./launch.sh
 
 # Manual Installation
@@ -15,7 +14,7 @@ Follow the steps for installation but remove 'clusterData => $clusterData,' prio
     
     $ localhost> vagrant ssh db1
     $ db1> sudo su - tungsten
-    $ db1> cd /opt/continuent/software/continuent-tungsten-2.0.1-1002
+    $ db1> cd /opt/continuent/software/tungsten-replicator-2.2.0-292
 
     $ db1> ./tools/tpm configure defaults \
     --user=tungsten \
@@ -23,17 +22,12 @@ Follow the steps for installation but remove 'clusterData => $clusterData,' prio
     --replication-user=tungsten \
     --replication-password=secret \
     --replication-port=13306 \
-    --application-user=app_user \
-    --application-password=secret \
-    --application-port=3306 \
-    --application-readonly-port=3307 \
     --start-and-report \
-    --mysql-connectorj-path=/opt/mysql/mysql-connector-java-5.1.26-bin.jar \
     '--profile-script=~/.bash_profile'
 
-    $ db1> ./tools/tpm configure east \
-    --master=db1 \
-    --slaves=db2,db3 \
-    --connectors=db1,db2,db3
+    $ db1> ./tools/tpm configure allmasters \
+    --topology=all-masters \
+    --master=db1,db2,db3 \
+    --master-services=alpha,bravo,charlie
 
     $ db1> ./tools/tpm install

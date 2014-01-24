@@ -5,7 +5,7 @@
     $ localhost> cd ~/std
     $ localhost> git submodule update --init
     $ localhost> cp examples/STD/default.pp ./manifests
-    $ localhost> cp examples/Vagrantfile.3.vbox ./Vagrantfile
+    $ localhost> cp examples/Vagrantfile.6.vbox ./Vagrantfile
     $ localhost> cp ~/continuent-tungsten-2.0.1-1002.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
     $ localhost> ./launch.sh
 
@@ -35,5 +35,14 @@ Follow the steps for installation but remove 'clusterData => $clusterData,' prio
     --master=db1 \
     --slaves=db2,db3 \
     --connectors=db1,db2,db3
+    
+    $ db1> ./tools/tpm configure west \
+    --master=db4 \
+    --slaves=db5,db6 \
+    --connectors=db4,db5,db6 \
+    --relay-source=east
+    
+    $ db1> ./tools/tpm configure us \
+    --composite-datasource=east,west
 
     $ db1> ./tools/tpm install
