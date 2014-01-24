@@ -1,29 +1,26 @@
-This directory builds a set of VMs that may be used for easily testing Continuent Tungsten solutions. You will need to have [vagrant](http://www.vagrantup.com/) installed before you proceed.
+This directory builds a set of VMs that may be used for easily testing Continuent Tungsten solutions. You will need to have [VirtualBox](https://www.virtualbox.org/) and [vagrant](http://www.vagrantup.com/) installed before you proceed.
 
-# Downloading
+# Quick Start
 
+This process will start a 3-node cluster using 32-bit Virtualbox images.
+
+    $ localhost> vagrant box add centos-64-i386 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-i386-v20130731.box
     $ localhost> git clone git@github.com:continuent/continuent-vagrant.git
     $ localhost> cd continuent-vagrant
     $ localhost> git submodule update --init
-
-# Using VirtualBox
-
-1. Download a VirtualBox image using either the 32-bit or 64-bit images below
-1. Copy the Vagrantfile.vbox file to Vagrantfile
-1. Update the Vagrantfile 'config.vm.box' value if you are using 64-bit
-2. Run the launch.sh script
-
-## Install a 32-bit base box
-
-    $ localhost> vagrant box add centos-64-i386 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-i386-v20130731.box
-
-## Install a 64-bit base box
-
-    $ localhost> vagrant box add centos-64-x64 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130731.box
+    $ localhost> cp examples/Vagrantfile.3.vbox ./Vagrantfile
+    $ localhost> cp examples/STD/default.pp ./manifests/
+    $ localhost> ./launch.sh
     
-## Install a large base box
+You can repeat this process with any of the examples subdirectories. View the README in that directory for more information. The launch.sh script will start the images and install the software. If you would like to do a manual install of Tungsten, remove 'clusterData => $clusterData,' from the manifests/default.pp file.
 
-    $ localhost> vagrant box add centos-64-large http://share.agile.ly/centos-6.4.box
+# Using a 64-bit base box
+
+1. Download the 64-bit box
+
+        $ localhost> vagrant box add centos-64-x64 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130731.box
+    
+1. Update your Vagrantfile to list "centos-64-x64" instead of "centos-64-i386"
     
 # Using EC2
 
@@ -34,10 +31,9 @@ This directory builds a set of VMs that may be used for easily testing Continuen
 1. Download a dummy image to start EC2 instances
 
         $ localhost> vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
-1. Copy the Vagrantfile.ec2 file to Vagrantfile
+1. Copy a examples/Vagrantfile.#.ec2 file to ./Vagrantfile
 1. Update fields at the top of Vagrantfile to match your environment
 2. Update the GROUP value if you are working with multiple continuent-vagrant directories
-3. Run the launch.sh script
 
 ## Known Issues with EC2
 

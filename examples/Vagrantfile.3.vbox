@@ -1,12 +1,13 @@
 Vagrant.configure("2") do |vcfg|
-	(1..2).each{|i|
+	(1..3).each{|i|
 		name = "db#{i}".to_sym()
 		vcfg.vm.define name do |config|
-			config.vm.box = "centos-64-large"
+			# Change this to centos-64-x64 if you downloaded the 64-bit image
+			config.vm.box = "centos-64-i386"
 			
 			config.vm.provider :virtualbox do |vb|
 				# Update this line to increase the amount of available memory
-				vb.customize ["modifyvm", :id, "--memory", "4096"]
+				vb.customize ["modifyvm", :id, "--memory", "1024"]
 			end
 
 			config.vm.hostname = "db#{i}"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd `dirname $0`
+cd `dirname $0`/..
 
 if [ "$1" == "--i-am-sure" ]
 then
@@ -47,7 +47,7 @@ then
 else
 	if [ "$1" == "-y" ]
 	then
-		./run.sh sudo /vagrant/clean.sh --i-am-sure
+		./run.sh sudo /vagrant/scripts/clean.sh --i-am-sure
 	else
 		echo "This will empty Tungsten directories except for the contents of software."
 		echo "The script will also reset all Tungsten schemas and the test schema."
@@ -55,7 +55,7 @@ else
 		REPLY=`echo $REPLY | tr '[:upper:]' '[:lower:]'`
 		if [[ $REPLY =~ ^(yes|y)$ ]]
 		then
-		    ./run.sh sudo /vagrant/clean.sh --i-am-sure
+		    ./run.sh sudo /vagrant/scripts/clean.sh --i-am-sure
 		fi
 	fi
 fi

@@ -14,26 +14,16 @@ $clusterData = {
 		"master" => "db4",
 		"members" => "db4,db5,db6",
 		"connectors" => "db4,db5,db6",
+		"relay-source" => "east",
 	},
-	"east_west" => {
-		"topology" => "cluster-slave",
-		"master-dataservice" => "east",
-		"slave-dataservice" => "west",
-		"thl-port" => "2113",
-	},
-	"west_east" => {
-		"topology" => "cluster-slave",
-		"master-dataservice" => "west",
-		"slave-dataservice" => "east",
-		"thl-port" => "2114",
+	"us" => {
+		"composite-datasources" => "east,west",
 	},
 }
 
 class { 'continuent_install' :
 	installSSHKeys => true,
 	installMysql => true,
-	replicatorRepo => nightly,
-	installReplicatorSoftware => true,
 	installClusterSoftware => $clusterRPM,
 	clusterData => $clusterData,
 }
