@@ -11,7 +11,7 @@ $clusterData = {
 	},
 }
 
-class { 'continuent_install' :
+class { 'tungsten' :
 	installSSHKeys => true,
 	installMysql => true,
 	installClusterSoftware => $clusterRPM,

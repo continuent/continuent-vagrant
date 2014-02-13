@@ -1,6 +1,3 @@
-[submodule "modules/continuent_install"]
-	path = modules/continuent_install
-	url = https://github.com/continuent/continuent_install.git
 [submodule "modules/firewall"]
 	path = modules/firewall
 	url = https://github.com/puppetlabs/puppetlabs-firewall.git
@@ -9,7 +6,7 @@
 	url = https://github.com/puppetlabs/puppetlabs-stdlib.git
 [submodule "modules/ec2_hosts"]
 	path = modules/ec2_hosts
-	url = https://github.com/continuent/ec2_hosts.git
+	url = https://github.com/continuent/continuent-ec2_hosts.git
 [submodule "modules/ntp"]
 	path = modules/ntp
 	url = https://github.com/puppetlabs/puppetlabs-ntp.git
@@ -28,3 +25,6 @@
 [submodule "modules/apt"]
 	path = modules/apt
 	url = https://github.com/puppetlabs/puppetlabs-apt
+[submodule "modules/tungsten"]
+	path = modules/tungsten
+	url = https://github.com/continuent/continuent-tungsten

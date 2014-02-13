@@ -16,7 +16,7 @@ if $fqdn == "db1" {
 	
 	class { 'oracle' :
 	} -> 
-	Class['continuent_install']
+	Class['tungsten']
 	
 	$clusterData = {
 		"mo" => {
@@ -32,7 +32,7 @@ if $fqdn == "db1" {
 	}
 }
 
-class { 'continuent_install' :
+class { 'tungsten' :
 	installSSHKeys => true,
 	installMysql => $installMysql,
 	replicatorRepo => nightly,
