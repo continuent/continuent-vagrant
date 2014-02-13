@@ -16,9 +16,9 @@
 [submodule "modules/java"]
 	path = modules/java
 	url = https://github.com/puppetlabs/puppetlabs-java.git
-[submodule "modules/continuent_oracle"]
-	path = modules/continuent_oracle
-	url = https://github.com/continuent/continuent_oracle.git
+[submodule "modules/oracle"]
+	path = modules/oracle
+	url = https://github.com/continuent/continuent-oracle.git
 [submodule "modules/sysctl"]
 	path = modules/sysctl
 	url = https://github.com/fiddyspence/puppet-sysctl.git
