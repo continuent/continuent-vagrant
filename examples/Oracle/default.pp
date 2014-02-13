@@ -14,7 +14,7 @@ if $fqdn == "db1" {
 } else {
 	$installMysql = false
 	
-	class { 'continuent_oracle' :
+	class { 'oracle' :
 	} -> 
 	Class['continuent_install']
 	
