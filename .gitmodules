@@ -22,3 +22,9 @@
 [submodule "modules/sysctl"]
 	path = modules/sysctl
 	url = https://github.com/fiddyspence/puppet-sysctl.git
+[submodule "modules/percona_repo"]
+	path = modules/percona_repo
+	url = https://github.com/continuent/continuent-percona_repo
+[submodule "modules/apt"]
+	path = modules/apt
+	url = https://github.com/puppetlabs/puppetlabs-apt
