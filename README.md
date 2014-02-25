@@ -5,7 +5,7 @@ This directory builds a set of VMs that may be used for easily testing Continuen
 This process will start a 3-node cluster using 32-bit Virtualbox images.
 
     $ localhost> vagrant box add centos-64-i386 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-i386-v20130731.box
-    $ localhost> git clone git@github.com:continuent/continuent-vagrant.git
+    $ localhost> git clone https://github.com/continuent/continuent-vagrant.git
     $ localhost> cd continuent-vagrant
     $ localhost> git submodule update --init
     $ localhost> cp ~/continuent-tungsten-2.0.1-1002.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
