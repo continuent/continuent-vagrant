@@ -43,6 +43,6 @@ Follow the steps for installation but remove 'clusterData => $clusterData,' prio
     --relay-source=east
     
     $ db1> ./tools/tpm configure us \
-    --composite-datasource=east,west
+    --composite-datasources=east,west
 
     $ db1> ./tools/tpm install

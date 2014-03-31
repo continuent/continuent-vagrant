@@ -1,10 +1,10 @@
 # Installation
 
     $ localhost> cd ~
-    $ localhost> git clone git@github.com:continuent/continuent-vagrant.git sor
-    $ localhost> cd ~/sor
+    $ localhost> git clone git@github.com:continuent/continuent-vagrant.git std
+    $ localhost> cd ~/std
     $ localhost> git submodule update --init
-    $ localhost> cp examples/SOR/default.pp ./manifests
+    $ localhost> cp examples/STD/default.pp ./manifests
     $ localhost> cp examples/Vagrantfile.3.vbox ./Vagrantfile
     $ localhost> cp ~/continuent-tungsten-2.0.1-1002.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
     $ localhost> ./launch.sh
