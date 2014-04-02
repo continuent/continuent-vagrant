@@ -1,4 +1,4 @@
-import 'vagrant_hosts.pp'
+class { "continuent_vagrant" : }
 
 $clusterRPM = "/vagrant/downloads/continuent-tungsten-latest.noarch.rpm"
 
