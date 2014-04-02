@@ -1,5 +1,3 @@
-class { "continuent_vagrant" : }
-
 $clusterData = {
 	"allmasters" => {
 		"topology" => "all-masters",
@@ -7,6 +5,8 @@ $clusterData = {
 		"master-services" => "alpha,bravo,charlie",
 	},
 }
+
+class { "continuent_vagrant" : }
 
 class { 'tungsten' :
 	installSSHKeys => true,

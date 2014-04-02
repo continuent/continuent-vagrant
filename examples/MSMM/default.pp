@@ -1,5 +1,3 @@
-class { "continuent_vagrant" : }
-
 $clusterRPM = "/vagrant/downloads/continuent-tungsten-latest.noarch.rpm"
 
 $clusterData = {
@@ -28,6 +26,8 @@ $clusterData = {
 		"thl-port" => "2114",
 	},
 }
+
+class { "continuent_vagrant" : }
 
 class { 'tungsten' :
 	installSSHKeys => true,

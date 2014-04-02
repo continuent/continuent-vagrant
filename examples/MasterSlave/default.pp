@@ -1,5 +1,3 @@
-class { "continuent_vagrant" : }
-
 $clusterData = {
 	"east" => {
 		"topology" => "master-slave",
@@ -7,6 +5,8 @@ $clusterData = {
 		"slaves" => "db2,db3",
 	},
 }
+
+class { "continuent_vagrant" : }
 
 class { 'tungsten' :
 	installSSHKeys => true,

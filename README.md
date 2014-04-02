@@ -45,13 +45,46 @@ Once you are finished with the instances
 
     $ localhost> vagrant destroy -f
 
-## Known Issues with EC2
+# Working with other modules
 
-### sudo: sorry, you must have a tty to run sudo
+## Using puppetlabs/mysql
+
+The continuent/tungsten module includes a very basic MySQL installation. If you would like to use the more advanced version, you may include the continuent\_vagrant::puppetlabs\_mysql class.
+
+Download the mysql module into your Vagrant directory
+
+    $> git clone https://github.com/puppetlabs/puppetlabs-mysql.git modules/mysql
+    
+Update the Class["continuent_vagrant"] declaration and remove the installMySQL setting from the Class["tungsten"] declaration.
+
+    class { "continuent_vagrant" : clusterData => $clusterData, installPuppetLabsMySQL => true}
+    
+The result will be something like this if we are using the MasterSlave example.
+
+    $clusterData = {
+    	"east" => {
+    		"topology" => "master-slave",
+    		"master" => "db1",
+    		"slaves" => "db2,db3",
+    	},
+    }
+    
+    class { "continuent_vagrant" : clusterData => $clusterData, installPuppetLabsMySQL => true}
+
+    class { 'tungsten' :
+    	installSSHKeys => true,
+    	replicatorRepo => stable,
+    	installReplicatorSoftware => true,
+    	clusterData => $clusterData,
+    }
+
+# Known Issues
+
+## sudo: sorry, you must have a tty to run sudo
 
 This can happen if the provisioning process runs to soon after the server starts. Just run `provision.sh` and it will try again.
 
-### /usr/lib/ruby/1.9.1/rubygems/custom_require.rb:36:in `require': cannot load such file -- mkmf (LoadError)
+## /usr/lib/ruby/1.9.1/rubygems/custom_require.rb:36:in `require': cannot load such file -- mkmf (LoadError)
 
 This occurs when installing the vagrant-aws plugin on some Ubuntu versions. To resolve install the ruby1.9.1-dev package
 on Centos/Redhat install

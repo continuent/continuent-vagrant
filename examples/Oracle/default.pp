@@ -1,5 +1,3 @@
-class { "continuent_vagrant" : }
-
 if $fqdn == "db1" {
 	$installMysql = true
 	
@@ -31,6 +29,8 @@ if $fqdn == "db1" {
 		},
 	}
 }
+
+class { "continuent_vagrant" : }
 
 class { 'tungsten' :
 	installSSHKeys => true,

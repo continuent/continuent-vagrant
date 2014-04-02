@@ -15,7 +15,16 @@
 # under the License.
 
 class continuent_vagrant (
+  $clusterData = false,
+  $installPuppetLabsMySQL = false,
 ) {
   stage { pre: before => Stage[main] }
   class { "continuent_vagrant::hosts": stage => pre}
+  
+  if $installPuppetLabsMySQL == true {
+    class { "continuent_vagrant::puppetlabs_mysql" : 
+      availableMastersData => $clusterData, 
+      stage => pre,
+    }
+  }
 }
