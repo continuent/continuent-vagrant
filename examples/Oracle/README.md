@@ -17,9 +17,9 @@ If you are going to load Oracle onto an EC2 instance, there are some additional 
 
 * Change 'Ebs.VolumeSize' to 40 or higher
 * Change 'aws.ami' to the appropriate value
-** us-east-1 = ami-aecd60c7
-** us-west-2 = ami-48da5578
-** eu-west-1 = ami-6d555119
+ * us-east-1 = ami-aecd60c7
+ * us-west-2 = ami-48da5578
+ * eu-west-1 = ami-6d555119
 
 # Usage
 
