@@ -45,9 +45,7 @@ Once you are finished with the instances
 
     $ localhost> vagrant destroy -f
 
-# Working with other modules
-
-## Using puppetlabs/mysql
+# Using puppetlabs/mysql for MySQL installation
 
 The continuent/tungsten module includes a very basic MySQL installation. If you would like to use the more advanced version, you may include the continuent\_vagrant::puppetlabs\_mysql class.
 
@@ -77,6 +75,22 @@ The result will be something like this if we are using the MasterSlave example.
     	installReplicatorSoftware => true,
     	clusterData => $clusterData,
     }
+    
+# Using the vagrant-cachier plugin
+
+The vagrant-cachier plugin can keep packages on your machine so they don't need to be downloaded multiple times.
+
+    $ localhost > vagrant plugin install vagrant-cachier
+    
+Add this to your Vagrantfile after the 'config.vm.network' line.
+
+    if Vagrant.has_plugin?("vagrant-cachier")
+      # Configure cached packages to be shared between instances 
+      # of the same base box.
+      config.cache.scope = :box
+    end
+    
+You may get errors the first time you run the `./launch.sh` script. Try starting up your servers with `vagrant up` the first time. The `./launch.sh` script should run properly after that.
 
 # Known Issues
 
