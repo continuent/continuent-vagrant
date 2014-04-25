@@ -30,6 +30,7 @@ class continuent_vagrant::puppetlabs_mysql (
         "bind_address" => "0.0.0.0",
         "server_id" => fqdn_rand(5000,$ipaddress),
         "log-bin" => "mysql-bin",
+        "binlog_format" => "ROW",
         "pid-file" => "/var/lib/mysql/mysql.pid",
         "port" => "13306",
         "open_files_limit" => "65535",
