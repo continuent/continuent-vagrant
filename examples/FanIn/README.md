@@ -1,8 +1,8 @@
 # Installation
 
     $ localhost> cd ~
-    $ localhost> git clone git@github.com:continuent/continuent-vagrant.git all
-    $ localhost> cd ~/all
+    $ localhost> git clone git@github.com:continuent/continuent-vagrant.git fanin
+    $ localhost> cd ~/fanin
     $ localhost> git submodule update --init
     $ localhost> cp examples/FanIn/default.pp ./manifests
     $ localhost> cp examples/Vagrantfile.3.vbox ./Vagrantfile
