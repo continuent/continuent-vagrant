@@ -1,3 +1,7 @@
+# Supported Platforms
+
+This example will only work on VirtualBox. We are working on an option for EC2 but it is not available at this time.
+
 # Installation
 
     $ localhost> cd ~

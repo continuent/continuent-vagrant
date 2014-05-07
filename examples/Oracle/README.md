@@ -1,3 +1,7 @@
+# Supported Platforms
+
+This example will only work on VirtualBox. We are working on an option for EC2 but it is not available at this time.
+
 # Installation
 
     $ localhost> cd ~
@@ -11,16 +15,6 @@
 Download [Oracle 11g Database Installer](http://www.oracle.com/technetwork/database/enterprise-edition/downloads/112010-linx8664soft-100572.html) to ./downloads
     
     $ localhost> ./launch.sh
-
-## Notes for EC2
-
-If you are going to load Oracle onto an EC2 instance, there are some additional changes needed to the Vagrantfile before you launch instances.
-
-* Change 'Ebs.VolumeSize' to 40 or higher
-* Change 'aws.ami' to the appropriate value
- * us-east-1 = ami-aecd60c7
- * us-west-2 = ami-48da5578
- * eu-west-1 = ami-6d555119
 
 # Usage
 
