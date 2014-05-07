@@ -4,6 +4,7 @@
     $ localhost> git clone git@github.com:continuent/continuent-vagrant.git oracle
     $ localhost> cd ~/oracle
     $ localhost> git submodule update --init
+    $ localhost> puppet module install -i ./modules continuent/oracle
     $ localhost> cp examples/Oracle/default.pp ./manifests
     $ localhost> cp examples/Vagrantfile.3.vbox ./Vagrantfile
     
