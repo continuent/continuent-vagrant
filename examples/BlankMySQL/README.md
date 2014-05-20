@@ -1,0 +1,1 @@
+This is a plain MySQL server that is ready for Continuent Tungsten installation.
