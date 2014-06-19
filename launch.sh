@@ -14,6 +14,8 @@
 # under the License.
  
 MAX_PROCS=4
+PROVIDER='virtualbox'
+CHECKSTRING='running ('
 
 OIFS=$IFS
 IFS=" "
@@ -35,16 +37,25 @@ vagrant destroy -f $*
 # start boxes sequentially to avoid vbox explosions
 
 IS_AWS=`grep vm.box Vagrantfile | grep dummy | wc -l`
+IS_OS=`grep vm.box Vagrantfile | grep dummyOS | wc -l`
+
 if [ $IS_AWS -eq 1 ]
 then
-  vagrant up --no-provision --provider=aws $*
-	sleep 5
-else
-  vagrant up --no-provision $*
+    PROVIDER='aws'
+    CHECKSTRING='running ('
 fi
 
+if [ $IS_OS -eq 1 ]
+then
+    PROVIDER='openstack'
+    CHECKSTRING='active ('
+fi
+
+vagrant up --no-provision --provider=$PROVIDER $*
+sleep 5
+
 if [ "$*" == "" ]; then
-	HOSTS=`vagrant status | grep -e 'running (' | awk -F" " '{print $1}'`
+	HOSTS=`vagrant status | grep -e $CHECKSTRING | awk -F" " '{print $1}'`
 else
 	HOSTS=`echo $* | tr " " "\n"`
 fi
