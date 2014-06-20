@@ -28,7 +28,6 @@ set_hostfile() {
    do
       echo "Getting IP Details for $box" 1>&2
       ip=`vagrant ssh $box -c 'facter|grep ipaddress_eth0'|awk -F" " '{print $3}'|tail -n1|tr -d $'\r'`
-      echo $ip
       echo "$ip $box" >> hostfile.txt
     done
    for box in `echo $HOSTS| tr "\n" " "`
