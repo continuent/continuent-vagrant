@@ -72,7 +72,7 @@ vagrant up --no-provision --provider=$PROVIDER $*
 sleep 5
 
 if [ "$*" == "" ]; then
-	HOSTS=`vagrant status | grep -e $CHECKSTRING | awk -F" " '{print $1}'`
+	HOSTS=`vagrant status | grep -e "$CHECKSTRING" | awk -F" " '{print $1}'`
 else
 	HOSTS=`echo $* | tr " " "\n"`
 fi
