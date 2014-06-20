@@ -1,0 +1,44 @@
+
+API_USER = "REPLACE_VALUE"
+API_PASSWORD = "REPLACE_VALUE"
+API_ENDPOINT  = "REPLACE_VALUE"
+NOVA_IMAGE  = "REPLACE_VALUE"
+VM_USER    = "REPLACE_VALUE"
+
+SSH_KEYPAIR = "REPLACE_VALUE"
+
+SSH_PRIVATE_KEY = "REPLACE_VALUE"
+
+Vagrant.configure("2") do |vcfg|
+	(1..3).each{|i|
+		name = "db#{i}".to_sym()
+		vcfg.vm.define name do |config|
+			config.vm.box = "dummyOS"
+			config.ssh.pty = true
+			config.ssh.private_key_path = SSH_PRIVATE_KEY
+		
+			config.vm.provider :openstack do |os|
+				os.username     = API_USER
+                os.api_key      = API_PASSWORD
+                os.flavor       = "m1.medium"
+                os.image        = NOVA_IMAGE
+                os.endpoint     = API_ENDPOINT
+                os.keypair_name = SSH_KEYPAIR
+                os.ssh_username = VM_USER
+                os.floating_ip  = "85.10.221.14#{i+5}"
+				
+				# Disable the requiretty setting and install puppet
+				os.user_data = "#!/bin/bash\nhostname #{name.to_s()}\nperl -pi -e 's/^Defaults[ ]*requiretty/#Defaults requiretty/' /etc/sudoers\nyum install -y ruby18 rubygems18 rubygem18-aws-sdk ruby18-devel\nalternatives --set ruby /usr/bin/ruby1.8\nyum install -y puppet"
+
+				config.vm.provision "puppet" do |puppet|
+					puppet.options = ""
+					puppet.module_path = "modules"
+					puppet.facter = {
+						"vagrant" => "1",
+						"fqdn" => name.to_s(),
+					}
+				end
+			end
+		end
+	}
+end
