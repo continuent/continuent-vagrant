@@ -25,6 +25,8 @@ class continuent_vagrant::hosts {
 		host { "db7": ip => "192.168.11.107", }
 		host { "db8": ip => "192.168.11.108", }
 	} else {
+    #Openstack hosts have the ec2 facts loaded but
+    #they have AZ of nova
     if $ec2_placement_availability_zone != 'nova'
     {
       class { "ec2_hosts":
