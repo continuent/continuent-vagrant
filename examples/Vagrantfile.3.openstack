@@ -15,16 +15,16 @@ Vagrant.configure("2") do |vcfg|
 		vcfg.vm.define name do |config|
 			config.vm.box = "dummyOS"
 			config.ssh.pty = true
-			config.ssh.private_key_path = $SSH_PRIVATE_KEY
+			config.ssh.private_key_path = SSH_PRIVATE_KEY
 		
 			config.vm.provider :openstack do |os|
-				os.username     = $API_USER
-                os.api_key      = $API_PASSWORD
+				os.username     = API_USER
+                os.api_key      = API_PASSWORD
                 os.flavor       = "m1.medium"
-                os.image        = $NOVA_IMAGE
-                os.endpoint     = $ENDPOINT
-                os.keypair_name = $SSH_KEYPAIR
-                os.ssh_username = $VM_USER
+                os.image        = NOVA_IMAGE
+                os.endpoint     = API_ENDPOINT
+                os.keypair_name = SSH_KEYPAIR
+                os.ssh_username = VM_USER
                 os.floating_ip  = "85.10.221.14#{i+5}"
 				
 				# Disable the requiretty setting and install puppet
