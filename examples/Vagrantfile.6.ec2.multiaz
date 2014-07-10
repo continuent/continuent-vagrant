@@ -88,7 +88,7 @@ Vagrant.configure("2") do |vcfg|
 						'Ebs.VolumeSize' => 8,
 						'Ebs.DeleteOnTermination' => true
 					}
-        ]
+				]
 		
 				override.ssh.username = "ec2-user"
 				override.ssh.private_key_path = SSH_PRIVATE_KEY
