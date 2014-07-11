@@ -21,37 +21,37 @@ Vagrant.configure("2") do |vcfg|
 			config.vm.provider :aws do |aws, override|
 				aws.instance_type = "m3.large"
 				
-             		        if i <= 2
-                                        # Amazon Linux AMI in us-east-1
-                                        aws.ami = "ami-83e4bcea"
-                                        aws.region = "us-east-1"
-                                        aws.availability_zone = "us-east-1c"
-                                elsif i <= 3
-                                        # Amazon Linux AMI in us-east-1
-                                        aws.ami = "ami-83e4bcea"
-                                        aws.region = "us-east-1"
-                                        aws.availability_zone = "us-east-1d"
-                                elsif i <= 5
-                                        # Amazon Linux AMI in us-west-2
-                                        aws.ami = "ami-ccf297fc"
-                                        aws.region = "us-west-2"
-                                        aws.availability_zone = "us-west-2b"
-                                elsif i <= 6
-                                        # Amazon Linux AMI in us-west-2
-                                        aws.ami = "ami-ccf297fc"
-                                        aws.region = "us-west-2"
-                                        aws.availability_zone = "us-west-2c"
-                                elsif i <= 8
-                                        # Amazon Linux AMI in us-west-1
-                                        aws.ami = "ami-5256b825"
-                                        aws.region = "eu-west-1"
-                                        aws.availability_zone = "eu-west-1c"
-                                 elsif i <= 9
-                                        # Amazon Linux AMI in us-west-1
-                                        aws.ami = "ami-5256b825"
-                                        aws.region = "eu-west-1"
-                                        aws.availability_zone = "eu-west-1b"
-                                end
+				if i <= 2
+					# Amazon Linux AMI in us-east-1
+					aws.ami = "ami-83e4bcea"
+					aws.region = "us-east-1"
+					aws.availability_zone = "us-east-1c"
+				elsif i <= 3
+					# Amazon Linux AMI in us-east-1
+					aws.ami = "ami-83e4bcea"
+					aws.region = "us-east-1"
+					aws.availability_zone = "us-east-1d"
+				elsif i <= 5
+					# Amazon Linux AMI in us-west-2
+					aws.ami = "ami-ccf297fc"
+					aws.region = "us-west-2"
+					aws.availability_zone = "us-west-2b"
+				elsif i <= 6
+					# Amazon Linux AMI in us-west-2
+					aws.ami = "ami-ccf297fc"
+					aws.region = "us-west-2"
+					aws.availability_zone = "us-west-2c"
+				elsif i <= 8
+					# Amazon Linux AMI in us-west-1
+					aws.ami = "ami-5256b825"
+					aws.region = "eu-west-1"
+					aws.availability_zone = "eu-west-1c"
+				elsif i <= 9
+					# Amazon Linux AMI in us-west-1
+					aws.ami = "ami-5256b825"
+					aws.region = "eu-west-1"
+					aws.availability_zone = "eu-west-1b"
+				end
 	
 				aws.access_key_id = ACCESS_KEY
 				aws.secret_access_key = SECRET_ACCESS_KEY
@@ -64,16 +64,31 @@ Vagrant.configure("2") do |vcfg|
 					CreatedAt: Time.now.strftime('%Y-%m-%dT%l:%M:%S')
 				}
 				
+				# Set this value to a positive integer to force the EC2 hosts to automatically
+				# shutdown. The value is the number of minutes before shutdown begins.
+				#SHUTDOWN_TIMER = nil
+				
+				# Write a command to automatically shutdown the instance 
+				# after a set number of minutes
+				unless defined?(SHUTDOWN_TIMER)
+					SHUTDOWN_TIMER = nil
+				end
+				if SHUTDOWN_TIMER.to_s() != "" && SHUTDOWN_TIMER.to_i() > 0
+					timer = "\nnohup shutdown -h +#{ENV["VTR_ENV_SHUTDOWN_TIMER"]} > ~/shutdown.log &"
+				else
+					timer = ""
+				end
+				
 				# Disable the requiretty setting and install puppet
-				aws.user_data = "#!/bin/bash\nhostname #{name.to_s()}\nperl -pi -e 's/^Defaults[ ]*requiretty/#Defaults requiretty/' /etc/sudoers\nyum install -y ruby18 rubygems18 rubygem18-aws-sdk ruby18-devel\nalternatives --set ruby /usr/bin/ruby1.8\nyum install -y puppet"
+				aws.user_data = "#!/bin/bash\nhostname #{name.to_s()}\nperl -pi -e 's/^Defaults[ ]*requiretty/#Defaults requiretty/' /etc/sudoers\nyum install -y ruby18 rubygems18 rubygem18-aws-sdk ruby18-devel\nalternatives --set ruby /usr/bin/ruby1.8\nyum install -y puppet#{timer}"
 
 				aws.block_device_mapping = [
-                                        {
-                                                'DeviceName' => "/dev/sda1",
-                                                'Ebs.VolumeSize' => 8,
-                                                'Ebs.DeleteOnTermination' => true
-                                        }
-                                ]
+					{
+						'DeviceName' => "/dev/sda1",
+						'Ebs.VolumeSize' => 8,
+						'Ebs.DeleteOnTermination' => true
+					}
+				]
 		
 				override.ssh.username = "ec2-user"
 				override.ssh.private_key_path = SSH_PRIVATE_KEY
