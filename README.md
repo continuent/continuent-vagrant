@@ -92,6 +92,18 @@ Add this to your Vagrantfile after the 'config.vm.network' line.
     
 You may get errors the first time you run the `./launch.sh` script. Try starting up your servers with `vagrant up` the first time. The `./launch.sh` script should run properly after that.
 
+# Automatic AWS instance shutdown
+
+Add the `SHUTDOWN_TIMER` constant to the top of your AWS Vagrantfile. If defined, the AWS instance will automatically shutdown after the defined number of minutes has passed.
+
+    # This will force a shutdown in 4 hours
+    SHUTDOWN_TIMER = 240
+
+You can cancel this process if you later decide that the instances should not be stopped.
+
+    $ localhost > vagrant ssh db1
+    $ db1 > sudo shutdown -c
+
 # Known Issues
 
 ## sudo: sorry, you must have a tty to run sudo
