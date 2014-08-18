@@ -116,3 +116,9 @@ This occurs when installing the vagrant-aws plugin on some Ubuntu versions. To r
 on Centos/Redhat install
 
        sudo yum install -y gcc ruby-devel libxml2 libxml2-devel libxslt libxslt-devel
+
+## Using a windows client
+
+Enusre you local git client in correctly setup not to translate Unix CR and LF characters. If it does it breaks the puppet install.
+
+Replace launch.sh in the setup steps with vagrant up
