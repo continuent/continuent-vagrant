@@ -12,7 +12,7 @@ This process will start a 3-node cluster using 64-bit Virtualbox images.
     $ localhost> git clone https://github.com/continuent/continuent-vagrant.git
     $ localhost> cd continuent-vagrant
     $ localhost> git submodule update --init
-    $ localhost> cp ~/continuent-tungsten-2.0.1-1002.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
+    $ localhost> cp ~/continuent-tungsten-2.0.4-589.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
     $ localhost> cp examples/Vagrantfile.3.vbox ./Vagrantfile
     $ localhost> cp examples/STD/default.pp ./manifests/
     
@@ -33,7 +33,7 @@ Prior to starting, make sure the 'default' security group allows SSH access from
     $ localhost> git clone https://github.com/continuent/continuent-vagrant.git
     $ localhost> cd continuent-vagrant
     $ localhost> git submodule update --init
-    $ localhost> cp ~/continuent-tungsten-2.0.1-1002.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
+    $ localhost> cp ~/continuent-tungsten-2.0.4-589.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
     $ localhost> cp examples/Vagrantfile.3.ec2 ./Vagrantfile
     $ localhost> cp examples/STD/default.pp ./manifests/
     
