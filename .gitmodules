@@ -28,3 +28,6 @@
 [submodule "modules/tungsten"]
 	path = modules/tungsten
 	url = https://github.com/continuent/continuent-tungsten
+[submodule "modules/selinux"]
+	path = modules/selinux
+	url = https://github.com/spiette/puppet-selinux.git
