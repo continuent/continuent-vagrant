@@ -31,3 +31,7 @@
 [submodule "modules/selinux"]
 	path = modules/selinux
 	url = https://github.com/spiette/puppet-selinux.git
+[submodule "modules/mysql"]
+	path = modules/mysql
+	url = https://github.com/puppetlabs/puppetlabs-mysql.git
+	branch = 3.0.x
