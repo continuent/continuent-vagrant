@@ -62,14 +62,7 @@ Vagrant.configure("2") do |vcfg|
 				end
 				
 				# Disable the requiretty setting and install puppet
-				aws.user_data = "#!/bin/bash
-                				hostname #{name.to_s()}
-                				echo -e '[main] \nenabled=0' > /etc/yum/pluginconf.d/priorities.conf
-                				rpm --import https://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs
-                                rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
-                				perl -pi -e 's/^Defaults[ ]*requiretty/#Defaults requiretty/' /etc/sudoers
-                				yum install -y ruby18 rubygems18 rubygem18-aws-sdk ruby18-devel\nalternatives --set ruby /usr/bin/ruby1.8
-                				yum install -y puppet#{timer}"
+				 aws.user_data = "#!/bin/bash\nhostname #{name.to_s()}\necho -e '[main]\nenabled=0' > /etc/yum/pluginconf.d/priorities.conf\nrpm --import https://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs\nrpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm\nperl -pi -e 's/^Defaults[ ]*requiretty/#Defaults requiretty/' /etc/sudoers\nyum install -y ruby18 rubygems18 rubygem18-aws-sdk ruby18-devel\nalternatives --set ruby /usr/bin/ruby1.8\nyum install -y puppet#{timer}"
 
 				aws.block_device_mapping = [
 					{
