@@ -28,7 +28,15 @@ Vagrant.configure("2") do |vcfg|
                 os.floating_ip  = "85.10.221.14#{i+5}"
 				
 				# Disable the requiretty setting and install puppet
-				os.user_data = "#!/bin/bash\nhostname #{name.to_s()}\nperl -pi -e 's/^Defaults[ ]*requiretty/#Defaults requiretty/' /etc/sudoers\nyum install -y ruby18 rubygems18 rubygem18-aws-sdk ruby18-devel\nalternatives --set ruby /usr/bin/ruby1.8\nyum install -y puppet"
+
+                os.user_data = "#!/bin/bash
+                				hostname #{name.to_s()}
+                				echo -e '[main] \nenabled=0' > /etc/yum/pluginconf.d/priorities.conf
+                				rpm --import https://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs
+                                rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
+                				perl -pi -e 's/^Defaults[ ]*requiretty/#Defaults requiretty/' /etc/sudoers
+                				yum install -y ruby18 rubygems18 rubygem18-aws-sdk ruby18-devel\nalternatives --set ruby /usr/bin/ruby1.8
+                				yum install -y puppet#{timer}"
 
 				config.vm.provision "puppet" do |puppet|
 					puppet.options = ""
