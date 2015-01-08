@@ -25,12 +25,12 @@
 [submodule "modules/apt"]
 	path = modules/apt
 	url = https://github.com/puppetlabs/puppetlabs-apt
-[submodule "modules/tungsten"]
-	path = modules/tungsten
-	url = https://github.com/continuent/continuent-tungsten
 [submodule "modules/selinux"]
 	path = modules/selinux
 	url = https://github.com/spiette/puppet-selinux.git
 [submodule "modules/mysql"]
 	path = modules/mysql
 	url = https://github.com/puppetlabs/puppetlabs-mysql.git
+[submodule "modules/tungsten"]
+	path = modules/tungsten
+	url = https://github.com/continuent/continuent-puppet-tungsten.git
