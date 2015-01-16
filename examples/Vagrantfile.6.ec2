@@ -16,13 +16,14 @@ Vagrant.configure("2") do |vcfg|
 		name = "db#{i}".to_sym()
 		vcfg.vm.define name do |config|
 			config.vm.box = "dummy"
-			config.ssh.pty = true 
-		
+			config.ssh.pty = true
+
 			config.vm.provider :aws do |aws, override|
 				aws.instance_type = "m3.large"
-				
+				config.puppet_install.puppet_version = :latest
+
 				if i <= 3
-					# Amazon Linux AMI in us-east-1	
+					# Amazon Linux AMI in us-east-1
 					aws.ami = "ami-83e4bcea"
 					aws.region = "us-east-1"
 				elsif i <= 6
@@ -30,27 +31,27 @@ Vagrant.configure("2") do |vcfg|
 					aws.ami = "ami-ccf297fc"
 					aws.region = "us-west-2"
 				elsif i <= 9
-					# Amazon Linux AMI in us-west-1	
+					# Amazon Linux AMI in us-west-1
 					aws.ami = "ami-5256b825"
 					aws.region = "eu-west-1"
 				end
-				
+
 				aws.access_key_id = ACCESS_KEY
 				aws.secret_access_key = SECRET_ACCESS_KEY
 				aws.keypair_name = SSH_KEYPAIR
-				
+
 				aws.tags = {
 					Name: "#{name.to_s()}.#{GROUP}",
 					VagrantGroup: GROUP,
 					Vagrant: 1,
 					CreatedAt: Time.now.strftime('%Y-%m-%dT%l:%M:%S')
 				}
-				
+
 				# Set this value to a positive integer to force the EC2 hosts to automatically
 				# shutdown. The value is the number of minutes before shutdown begins.
 				#SHUTDOWN_TIMER = nil
-				
-				# Write a command to automatically shutdown the instance 
+
+				# Write a command to automatically shutdown the instance
 				# after a set number of minutes
 				unless defined?(SHUTDOWN_TIMER)
 					SHUTDOWN_TIMER = nil
@@ -60,13 +61,11 @@ Vagrant.configure("2") do |vcfg|
 				else
 					timer = ""
 				end
-				
+
 				# Disable the requiretty setting and install puppet
 				aws.user_data = "#!/bin/bash
                 				hostname #{name.to_s()}
                 				echo -e '[main] \nenabled=0' > /etc/yum/pluginconf.d/priorities.conf
-                				rpm --import https://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs
-                                rpm -ivh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm
                 				perl -pi -e 's/^Defaults[ ]*requiretty/#Defaults requiretty/' /etc/sudoers
                 				yum install -y ruby18 rubygems18 rubygem18-aws-sdk ruby18-devel\nalternatives --set ruby /usr/bin/ruby1.8
                 				yum install -y puppet#{timer}"
@@ -78,10 +77,10 @@ Vagrant.configure("2") do |vcfg|
 						'Ebs.DeleteOnTermination' => true
 					}
 				]
-		
+
 				override.ssh.username = "ec2-user"
 				override.ssh.private_key_path = SSH_PRIVATE_KEY
-				
+
 				config.vm.provision "puppet" do |puppet|
 					puppet.options = ""
 					puppet.module_path = "modules"

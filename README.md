@@ -29,6 +29,7 @@ Once you are finished with the instances
 
 Prior to starting, make sure the 'default' security group allows SSH access from your machine.
 
+    $ localhost> vagrant plugin install vagrant-puppet-install
     $ localhost> vagrant plugin install vagrant-aws  
     $ localhost> vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
     $ localhost> git clone https://github.com/continuent/continuent-vagrant.git
@@ -123,3 +124,9 @@ on Centos/Redhat install
 Enusre you local git client in correctly setup not to translate Unix CR and LF characters. If it does it breaks the puppet install.
 
 Replace launch.sh in the setup steps with vagrant up
+
+## Unknown configuration section 'puppet_install'.
+
+Ensure the puppet_install plug in is installed
+
+   $ localhost> vagrant plugin install vagrant-puppet-install
