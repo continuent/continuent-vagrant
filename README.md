@@ -127,6 +127,6 @@ Replace launch.sh in the setup steps with vagrant up
 
 ## Unknown configuration section 'puppet_install'.
 
-Ensure the puppet_install plug in is installed
+Ensure the puppet_install plug in is installed. You may need to upgrade to the latest version of Vagrant for it to install properly.
 
    $ localhost> vagrant plugin install vagrant-puppet-install
