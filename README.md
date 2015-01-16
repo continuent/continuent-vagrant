@@ -8,6 +8,7 @@ You can repeat this process with any of the examples subdirectories. View the RE
 
 This process will start a 3-node cluster using 64-bit Virtualbox images.
 
+    $ localhost> vagrant plugin install vagrant-puppet-install
     $ localhost> vagrant box add centos-64-x64 http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130731.box
     $ localhost> git clone https://github.com/continuent/continuent-vagrant.git
     $ localhost> cd continuent-vagrant
@@ -15,19 +16,20 @@ This process will start a 3-node cluster using 64-bit Virtualbox images.
     $ localhost> cp ~/continuent-tungsten-2.0.4-589.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
     $ localhost> cp examples/Vagrantfile.3.vbox ./Vagrantfile
     $ localhost> cp examples/STD/default.pp ./manifests/
-    
+
 The launch.sh script will start the images and install the software.
-    
+
     $ localhost> ./launch.sh
 
 Once you are finished with the instances
 
     $ localhost> vagrant destroy -f
-    
+
 ## Using EC2
 
 Prior to starting, make sure the 'default' security group allows SSH access from your machine.
 
+    $ localhost> vagrant plugin install vagrant-puppet-install
     $ localhost> vagrant plugin install vagrant-aws  
     $ localhost> vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
     $ localhost> git clone https://github.com/continuent/continuent-vagrant.git
@@ -36,7 +38,7 @@ Prior to starting, make sure the 'default' security group allows SSH access from
     $ localhost> cp ~/continuent-tungsten-2.0.4-589.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
     $ localhost> cp examples/Vagrantfile.3.ec2 ./Vagrantfile
     $ localhost> cp examples/STD/default.pp ./manifests/
-    
+
 The launch.sh script will start the images and install the software. Update the files at the top of Vagrantfile to match your environment. Modify the GROUP value if you are working with multiple continuent-vagrant directories.
 
     $ localhost> ./launch.sh
@@ -52,11 +54,11 @@ The continuent/tungsten module includes a very basic MySQL installation. If you 
 Download the mysql module into your Vagrant directory
 
     $> git clone https://github.com/puppetlabs/puppetlabs-mysql.git modules/mysql
-    
+
 Update the Class["continuent_vagrant"] declaration and remove the installMySQL setting from the Class["tungsten"] declaration.
 
     class { "continuent_vagrant" : clusterData => $clusterData, installPuppetLabsMySQL => true}
-    
+
 The result will be something like this if we are using the MasterSlave example.
 
     $clusterData = {
@@ -66,7 +68,7 @@ The result will be something like this if we are using the MasterSlave example.
     		"slaves" => "db2,db3",
     	},
     }
-    
+
     class { "continuent_vagrant" : clusterData => $clusterData, installPuppetLabsMySQL => true}
 
     class { 'tungsten' :
@@ -75,21 +77,21 @@ The result will be something like this if we are using the MasterSlave example.
     	installReplicatorSoftware => true,
     	clusterData => $clusterData,
     }
-    
+
 # Using the vagrant-cachier plugin
 
 The vagrant-cachier plugin can keep packages on your machine so they don't need to be downloaded multiple times.
 
     $ localhost > vagrant plugin install vagrant-cachier
-    
+
 Add this to your Vagrantfile after the 'config.vm.network' line.
 
     if Vagrant.has_plugin?("vagrant-cachier")
-      # Configure cached packages to be shared between instances 
+      # Configure cached packages to be shared between instances
       # of the same base box.
       config.cache.scope = :box
     end
-    
+
 You may get errors the first time you run the `./launch.sh` script. Try starting up your servers with `vagrant up` the first time. The `./launch.sh` script should run properly after that.
 
 # Automatic AWS instance shutdown
@@ -122,3 +124,9 @@ on Centos/Redhat install
 Enusre you local git client in correctly setup not to translate Unix CR and LF characters. If it does it breaks the puppet install.
 
 Replace launch.sh in the setup steps with vagrant up
+
+## Unknown configuration section 'puppet_install'.
+
+Ensure the puppet_install plug in is installed
+
+   $ localhost> vagrant plugin install vagrant-puppet-install
