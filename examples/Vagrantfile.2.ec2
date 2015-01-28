@@ -20,7 +20,7 @@ Vagrant.configure("2") do |vcfg|
 
 			config.vm.provider :aws do |aws, override|
 				aws.instance_type = "m3.large"
-				config.puppet_install.puppet_version = :latest
+				config.puppet_install.puppet_version = "3.7.3"
 
 				if i <= 3
 					# Amazon Linux AMI in us-east-1
