@@ -28,9 +28,9 @@
 [submodule "modules/mysql"]
 	path = modules/mysql
 	url = https://github.com/puppetlabs/puppetlabs-mysql.git
-[submodule "modules/tungsten"]
-	path = modules/tungsten
-	url = https://github.com/continuent/continuent-puppet-tungsten.git
 [submodule "modules/selinux"]
 	path = modules/selinux
 	url = https://github.com/continuent/puppet-selinux.git
+[submodule "modules/tungsten"]
+	path = modules/tungsten
+	url = https://github.com/continuent/continuent-puppet-tungsten.git
