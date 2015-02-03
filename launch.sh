@@ -12,7 +12,7 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
 # License for the specific language governing permissions and limitations
 # under the License.
- 
+
 MAX_PROCS=4
 PROVIDER='virtualbox'
 CHECKSTRING='running ('
@@ -45,7 +45,7 @@ parallel_provision() {
     done | xargs -P $MAX_PROCS -I"BOXNAME" \
         sh -c 'vagrant provision BOXNAME >BOXNAME.out.log 2>&1 || echo "Error Occurred: BOXNAME"'
 }
- 
+
 ## -- main -- ##
 
 
@@ -54,6 +54,7 @@ vagrant destroy -f $*
 
 IS_AWS=`grep vm.box Vagrantfile | grep dummy | wc -l`
 IS_OS=`grep vm.box Vagrantfile | grep dummyOS | wc -l`
+IS_VCENTER=`grep vp.provider Vagrantfile | grep vcenter | wc -l`
 
 if [ $IS_AWS -eq 1 ]
 then
@@ -67,6 +68,12 @@ then
     CHECKSTRING='active ('
 fi
 
+if [ $IS_VCENTER -eq 1 ]
+then
+    PROVIDER='vcenter'
+    CHECKSTRING='active ('
+fi
+
 vagrant up --no-provision --provider=$PROVIDER $*
 sleep 5
 
@@ -77,6 +84,12 @@ else
 fi
 
 if [ $IS_OS -eq 1 ]
+then
+    set_hostfile
+
+fi
+
+if [ $IS_VCENTER  -eq 1 ]
 then
     set_hostfile
 

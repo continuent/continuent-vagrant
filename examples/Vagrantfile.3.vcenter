@@ -1,0 +1,74 @@
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'vcenter'
+
+nodes = []
+
+[*1..3].each do |n|
+	nodes << { hostname: "db#{n}",
+						box: 'gosddc/centos65-x64',
+						ip: "192.168.0.18#{n}",
+						mem: 2048,
+						cpu: 2 }
+end
+
+
+
+Vagrant.configure('2') do |config|
+
+	# Go through nodes and configure each of them.
+	nodes.each do |node|
+
+		config.vm.provider :vcenter do |vcenter|
+			vcenter.hostname = '192.168.0.150'
+			vcenter.username = 'root'
+			vcenter.password = 'vmware'
+			vcenter.folder_name = 'Vagrant'
+			vcenter.datacenter_name = 'TLO'
+			vcenter.computer_name = 'Cluster1'
+			vcenter.datastore_name = 'NAS'
+			vcenter.network_name = 'VM Network'
+			vcenter.linked_clones = true
+		end
+
+		config.vm.define node[:hostname] do |node_config|
+			node_config.vm.box = node[:box]
+			node_config.vm.hostname = node[:hostname]
+
+			# Let's configure the network for the VM, only the ip changes and is
+			# coming from the nodes array
+			node_config.vm.network :public_network,
+														ip: node[:ip],
+														netmask: '255.255.0.0',
+														gateway: '192.168.0.1',
+														dns_server_list: ['8.8.4.4', '8.8.8.8'],
+														dns_suffix_list: ['narmitag.com']
+
+			# Let's override some provider settings for specific VMs
+			node_config.vm.provider :vcenter do |override|
+				# Override number of cpu and memory based on what's in the nodes array
+				override.num_cpu = node[:cpu]
+				override.memory = node[:mem]
+				case node[:hostname]
+				# Override the folder name based on the hostname of the VM
+				when /centos/
+					override.folder_name = 'Vagrant/centos'
+				when /precise/
+					override.folder_name = 'Vagrant/ubuntu/precise'
+					override.enable_vm_customization = false
+				end
+			end
+			node_config.nfs.functional = false
+				config.vm.provision "puppet" do |puppet|
+					puppet.options = ""
+					puppet.module_path = "modules"
+					puppet.facter = {
+						"vagrant" => "1",
+						"fqdn" => "db#{i}"
+			}
+				# Set the temp directory name for an error in Vagrant 1.4.1
+				begin
+					puppet.temp_dir = "/tmp/vagrant-puppet"
+				rescue
+				end
+		end
+	end
+end
