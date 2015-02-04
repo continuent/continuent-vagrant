@@ -1,6 +1,6 @@
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'vcenter'
 VCENTER_SERVER=<vcenter host>
-VCENTER_USER= 
+VCENTER_USER=
 VCENTER_PASS=
 VCENTER_FOLDER=
 VCENTER_DATACENTER=
@@ -10,7 +10,7 @@ VCENTER_NETWORK=
 
 nodes = []
 
-[*1..3].each do |n|
+[*1..6].each do |n|
 	nodes << { hostname: "db#{n}",
 						box: 'gosddc/centos65-x64',
 						ip: "192.168.0.18#{n}",

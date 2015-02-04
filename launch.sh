@@ -24,6 +24,7 @@ cd `dirname $0`
 set_hostfile() {
 
    rm -f hostfile.txt
+   echo '127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4' > hostfile.txt
    for box in `echo $HOSTS| tr "\n" " "`
    do
       echo "Getting IP Details for $box" 1>&2
@@ -32,7 +33,7 @@ set_hostfile() {
     done
    for box in `echo $HOSTS| tr "\n" " "`
    do
-      vagrant ssh $box -c "sudo echo \"`cat hostfile.txt`\" >> /etc/hosts"
+      vagrant ssh $box -c "sudo echo \"`cat hostfile.txt`\"| sudo tee  /etc/hosts"
     done
 }
 
@@ -54,7 +55,7 @@ vagrant destroy -f $*
 
 IS_AWS=`grep vm.box Vagrantfile | grep dummy | wc -l`
 IS_OS=`grep vm.box Vagrantfile | grep dummyOS | wc -l`
-IS_VCENTER=`grep vp.provider Vagrantfile | grep vcenter | wc -l`
+IS_VCENTER=`grep vm.provider Vagrantfile |head -n1| grep vcenter | wc -l`
 
 if [ $IS_AWS -eq 1 ]
 then
@@ -71,7 +72,7 @@ fi
 if [ $IS_VCENTER -eq 1 ]
 then
     PROVIDER='vcenter'
-    CHECKSTRING='active ('
+    CHECKSTRING='running ('
 fi
 
 vagrant up --no-provision --provider=$PROVIDER $*
