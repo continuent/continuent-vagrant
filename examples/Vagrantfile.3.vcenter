@@ -1,6 +1,6 @@
 ENV['VAGRANT_DEFAULT_PROVIDER'] = 'vcenter'
 VCENTER_SERVER=<vcenter host>
-VCENTER_USER= 
+VCENTER_USER=
 VCENTER_PASS=
 VCENTER_FOLDER=
 VCENTER_DATACENTER=
@@ -69,7 +69,7 @@ Vagrant.configure('2') do |config|
 					puppet.options = ""
 					puppet.module_path = "modules"
 					puppet.facter = {
-						"vagrant" => "1"
+						"vagrant" => "1","platform"=>'vcenter'
 			}
 				# Set the temp directory name for an error in Vagrant 1.4.1
 				begin
