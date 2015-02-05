@@ -47,36 +47,31 @@ Once you are finished with the instances
 
     $ localhost> vagrant destroy -f
 
-# Using puppetlabs/mysql for MySQL installation
 
-The continuent/tungsten module includes a very basic MySQL installation. If you would like to use the more advanced version, you may include the continuent\_vagrant::puppetlabs\_mysql class.
+## Using VMware vCenter
 
-Download the mysql module into your Vagrant directory
+    This process will start a 3-node cluster using 64-bit vCenter images.
 
-    $> git clone https://github.com/puppetlabs/puppetlabs-mysql.git modules/mysql
+        $ localhost> vagrant plugin install vagrant-puppet-install
+        $ localhost> vagrant plugin install vagrant-vcenter
+        $ localhost> git clone https://github.com/continuent/continuent-vagrant.git
+        $ localhost> cd continuent-vagrant
+        $ localhost> git submodule update --init
+        $ localhost> cp ~/continuent-tungsten-2.0.4-589.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
+        $ localhost> cp examples/Vagrantfile.3.vcenter ./Vagrantfile
+        $ localhost> cp examples/STD/default.pp ./manifests/
 
-Update the Class["continuent_vagrant"] declaration and remove the installMySQL setting from the Class["tungsten"] declaration.
+    Customize the variables in the Vagrantfile to match your vCenter environment
 
-    class { "continuent_vagrant" : clusterData => $clusterData, installPuppetLabsMySQL => true}
+    The launch.sh script will start the images and install the software.
 
-The result will be something like this if we are using the MasterSlave example.
+        $ localhost> ./launch.sh
 
-    $clusterData = {
-    	"east" => {
-    		"topology" => "master-slave",
-    		"master" => "db1",
-    		"slaves" => "db2,db3",
-    	},
-    }
+    Once you are finished with the instances
 
-    class { "continuent_vagrant" : clusterData => $clusterData, installPuppetLabsMySQL => true}
+        $ localhost> vagrant destroy -f
 
-    class { 'tungsten' :
-    	installSSHKeys => true,
-    	replicatorRepo => stable,
-    	installReplicatorSoftware => true,
-    	clusterData => $clusterData,
-    }
+
 
 # Using the vagrant-cachier plugin
 
