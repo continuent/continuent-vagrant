@@ -25,6 +25,7 @@ Vagrant.configure('2') do |config|
 	# Go through nodes and configure each of them.
 	nodes.each do |node|
 
+    config.puppet_install.puppet_version = "3.7.3"
 		config.vm.provider :vcenter do |vcenter|
 			vcenter.hostname = VCENTER_SERVER
 			vcenter.username = VCENTER_USER
