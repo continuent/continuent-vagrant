@@ -19,7 +19,7 @@ Vagrant.configure("2") do |vcfg|
 				puppet.facter = {
 					"vagrant" => "1",
 					"fqdn" => "db#{i}",
-					"platform"=>"virtualbox'
+					"platform"=>"virtualbox"
 				}
 
 				# Set the temp directory name for an error in Vagrant 1.4.1
