@@ -44,7 +44,7 @@ Vagrant.configure("2") do |vcfg|
 					puppet.facter = {
 						"vagrant" => "1",
 						"fqdn" => name.to_s(),
-						"platform"=>"openstack'
+						"platform"=>"openstack"
 					}
 				end
 			end
