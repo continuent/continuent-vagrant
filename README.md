@@ -53,7 +53,12 @@ Once you are finished with the instances
     This process will start a 3-node cluster using 64-bit vCenter images.
 
         $ localhost> vagrant plugin install vagrant-puppet-install
+        $ localhost> vagrant plugin install vagrant-vmware-fusion
         $ localhost> vagrant plugin install vagrant-vcenter
+        
+        # Remove the vagrant-vmware-fusion plugin. It is a prereq
+        # for vagrant-vcenter but will cause errors if left in place
+        $ localhost> vagrant plugin uninstall vagrant-vmware-fusion
         $ localhost> git clone https://github.com/continuent/continuent-vagrant.git
         $ localhost> cd continuent-vagrant
         $ localhost> git submodule update --init
@@ -61,7 +66,7 @@ Once you are finished with the instances
         $ localhost> cp examples/Vagrantfile.3.vcenter ./Vagrantfile
         $ localhost> cp examples/STD/default.pp ./manifests/
 
-    Customize the variables in the Vagrantfile to match your vCenter environment
+    Customize the variables in the Vagrantfile to match your vCenter environment. Be sure to adjust the IP addresses and routing information to match your network.
 
     The launch.sh script will start the images and install the software.
 
