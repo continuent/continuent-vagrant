@@ -29,7 +29,8 @@ Once you are finished with the instances
 
 Prior to starting, make sure the 'default' security group allows SSH access from your machine.
 
-    $ localhost> vagrant plugin install vagrant-aws  
+    $ localhost> vagrant plugin install vagrant-aws
+    $ localhost> vagrant plugin install vagrant-puppet-install  
     $ localhost> vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
     $ localhost> git clone https://github.com/continuent/continuent-vagrant.git
     $ localhost> cd continuent-vagrant
