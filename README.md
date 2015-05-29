@@ -13,7 +13,15 @@ This process will start a 3-node cluster using 64-bit Virtualbox images.
     $ localhost> git clone https://github.com/continuent/continuent-vagrant.git
     $ localhost> cd continuent-vagrant
     $ localhost> git submodule update --init
-    $ localhost> cp ~/continuent-tungsten-2.0.4-589.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
+    
+    # If using an RPM Build
+    $ localhost> cp ~/continuent-tungsten-4.0.0-2667425.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
+    
+    # ..or, if using the TAR Build
+    $ localhost> cp ~/continuent-tungsten-4.0.0-2667425.tar.gz ./downloads
+    $ localhost> vi manifests/default.pp
+    # Change the clusterRPM line to: $clusterRPM = "/vagrant/downloads/continuent-tungsten-4.0.0-2667425.tar.gz"
+    
     $ localhost> cp examples/Vagrantfile.3.vbox ./Vagrantfile
     $ localhost> cp examples/STD/default.pp ./manifests/
 
