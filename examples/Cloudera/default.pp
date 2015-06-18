@@ -1,66 +1,45 @@
-$replicatorPackage = "/vagrant/downloads/tungsten-replicator-latest.tar.gz"
+# Copyright (C) 2014 Continuent, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License.  You may obtain
+# a copy of the License at
+#
+#         http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
+# License for the specific language governing permissions and limitations
+# under the License.
 
-anchor { "dbms::end" : }
+$replicatorPackage = "/vagrant/downloads/tungsten-replicator-latest.noarch.rpm"
 
 if $fqdn == "db1" {
-	$installMysql = true
-
+	$mysql = true
+	$hadoop = false
 	$clusterData = {
-		"mh" => {
+		"east" => {
 			"topology" => "master-slave",
 			"master" => "db1",
-			"members" => "db1,db2",
-			"enable-heterogenous-service" => "true",
-			"java-user-timezone" => "GMT",
-			"property=replicator.filter.pkey.addColumnsToDeletes" => "true",
-			"property=replicator.filter.pkey.addPkeyToInserts" => "true"
+			"slaves" => "db2",
+			"enable-heterogeneous-service" => "true",
 		},
 	}
 } else {
-	Sysctl {
-		provider => "augeas"
-	}
-
-	$installMysql = false
-
-	class { 'cloudera' :
-		cm_server_host => "db2",
-		use_parcels => false,
-		install_java => false,
-	} ->
-	file { "/user" :
-		ensure => "directory",
-	} ->
-	exec { "/user/tungsten" :
-		command => "/usr/bin/hadoop fs -mkdir /user/tungsten",
-		unless => "/usr/bin/hadoop fs -test -d /user/tungsten"
-	} ~>
-	exec { "/user/tungsten:mode" :
-		command => "/usr/bin/hadoop fs -chmod 700 /user/tungsten",
-		refreshonly => true,
-	} ~>
-	exec { "/user/tungsten:owner" :
-		command => "/usr/bin/hadoop fs -chown tungsten: /user/tungsten",
-		refreshonly => true,
-	} ->
-	Anchor["dbms::end"]
-	
+	$mysql = false
+	$hadoop = "cdh5"
 	$clusterData = {
-		"mh" => {
+		"east" => {
 			"topology" => "master-slave",
 			"master" => "db1",
-			"members" => "db1,db2",
-			"enable-heterogenous-service" => "true",
+			"slaves" => "db2",
+			"enable-heterogeneous-service" => "true",
+			"rmi-port" => "10002",
 			"batch-enabled" => "true",
 			"batch-load-language" => "js",
 			"batch-load-template" => "hadoop",
 			"datasource-type" => "file",
-			"java-file-encoding" => "UTF8",
-			"java-user-timezone" => "GMT",
-			"svc-applier-block-commit-interval" => "1s",
-			"svc-applier-block-commit-size" => "1000",
-			"property=replicator.datasource.applier.csvType" => "hive",
-			"skip-validation-check" => "DirectDatasourceDBPort,DatasourceDBPort"
+			"property" => "replicator.datasource.applier.csvType=hive",
 		},
 	}
 }
@@ -69,10 +48,8 @@ class { "continuent_vagrant" : }
 
 class { 'tungsten' :
 	installSSHKeys => true,
-	installMysql => $installMysql,
+	installMysql => $mysql,
+	installHadoop => $hadoop,
 	installReplicatorSoftware => $replicatorPackage,
-	clusterData => $clusterData
+	clusterData => $clusterData,
 }
-
-Anchor["dbms::end"] ->
-Class["tungsten::tungsten"]
