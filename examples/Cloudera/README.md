@@ -10,7 +10,7 @@ This example will only work on VirtualBox. We are working on an option for EC2 b
     $ localhost> git submodule update --init
     $ localhost> cp examples/Cloudera/default.pp ./manifests
     $ localhost> cp examples/Vagrantfile.2.vbox ./Vagrantfile
-    $ localhost> cp ~/tungsten-replicator-3.0.0-57.tar.gz ./downloads/tungsten-replicator-latest.tar.gz
+    $ localhost> cp ~/tungsten-replicator-4.0.0-2667425.tar.gz ./downloads
     $ localhost> ./launch.sh
 
 # Initialize Materialized Views
