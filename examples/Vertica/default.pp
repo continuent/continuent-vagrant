@@ -16,7 +16,8 @@ $replicatorPackage = "/vagrant/downloads/tungsten-replicator-4.0.0-2667425.tar.g
 
 if $fqdn == "db1" {
 	$mysql = true
-	$hadoop = false
+	$verticaPackage = false
+	$verticaDatabaseName = false
 	$clusterData = {
 		"east" => {
 			"topology" => "master-slave",
@@ -27,19 +28,22 @@ if $fqdn == "db1" {
 	}
 } else {
 	$mysql = false
-	$hadoop = "cdh5"
+	$verticaPackage = "/vagrant/downloads/vertica-7.1.1-0.x86_64.RHEL5.rpm"
+	$verticaDatabaseName = "bigdata"
 	$clusterData = {
 		"east" => {
 			"topology" => "master-slave",
 			"master" => "db1",
 			"slaves" => "db2",
 			"enable-heterogeneous-service" => "true",
-			"rmi-port" => "10002",
 			"batch-enabled" => "true",
 			"batch-load-language" => "js",
-			"batch-load-template" => "hadoop",
-			"datasource-type" => "file",
-			"property" => "replicator.datasource.applier.csvType=hive",
+			"batch-load-template" => "vertica6",
+			"datasource-type" => "vertica",
+			"replication-user" => "dbadmin",
+			"vertica-dbname" => $verticaDatabaseName,
+			"java-external-lib-dir" => "/opt/vertica/java/lib",
+			"preferred-path" => "/opt/vertica/bin"
 		},
 	}
 }
@@ -49,7 +53,9 @@ class { "continuent_vagrant" : }
 class { 'tungsten' :
 	installSSHKeys => true,
 	installMysql => $mysql,
-	installHadoop => $hadoop,
+	overrideOptionsMysqld=>{'binlog-format'=>'row'},
+	installVertica => $verticaPackage,
+	verticaDatabaseName => $verticaDatabaseName,
 	installReplicatorSoftware => $replicatorPackage,
 	clusterData => $clusterData,
 }
