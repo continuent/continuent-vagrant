@@ -56,6 +56,7 @@ then
 		
 		mysql -BN -e "SET GLOBAL binlog_format=${BINLOG_FORMAT}" >/dev/null 2>&1
 		mysql -BN -e 'RESET MASTER' >/dev/null 2>&1
+		rm -f /etc/tungsten/tungsten.ini > /dev/null 2>&1
 	fi
 else
 	if [ "$1" == "-y" ]
