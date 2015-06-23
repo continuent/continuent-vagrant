@@ -71,7 +71,8 @@ class { 'tungsten' :
 	installSSHKeys => true,
 	installMysql => $installMysql,
 	installReplicatorSoftware => $replicatorPackage,
-	clusterData => $clusterData
+	clusterData => $clusterData,
+	overrideOptionsMysqld=>{'binlog-format'=>'row'}
 }
 
 Anchor["dbms::end"] ->
