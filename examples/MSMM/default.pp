@@ -48,5 +48,6 @@ class { 'tungsten' :
 	replicatorRepo => nightly,
 	installReplicatorSoftware => true,
 	installClusterSoftware => $clusterRPM,
+        mySQLSetAutoIncrement=> true,
 	clusterData => $clusterData,
 }
