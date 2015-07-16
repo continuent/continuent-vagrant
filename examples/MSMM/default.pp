@@ -14,6 +14,9 @@
 $clusterRPM = "/vagrant/downloads/continuent-tungsten-latest.noarch.rpm"
 
 $clusterData = {
+	"defaults.replicator" => {
+		"executable-prefix" => "mm",
+	},
 	"east" => {
 		"topology" => "clustered",
 		"master" => "db1",
@@ -48,6 +51,6 @@ class { 'tungsten' :
 	replicatorRepo => nightly,
 	installReplicatorSoftware => true,
 	installClusterSoftware => $clusterRPM,
-        mySQLSetAutoIncrement=> true,
+	mySQLSetAutoIncrement=> true,
 	clusterData => $clusterData,
 }
