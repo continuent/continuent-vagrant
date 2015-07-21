@@ -1,0 +1,44 @@
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'vmware_appcatalyst'
+nodes = []
+
+[*1..3].each do |n|
+	nodes << { hostname: "db#{n}",
+						box: "hashicorp/precise64",
+						ip: "192.168.11.10#{n}",
+						mem: 1024,
+						cpu: 1 }
+end
+
+Vagrant.configure('2') do |vcfg|
+	# Go through nodes and configure each of them.
+	nodes.each do |node|
+	  vcfg.vm.define node[:hostname] do |config|
+			config.puppet_install.puppet_version = "3.7.3"
+			config.vm.box = node[:box]
+			
+			config.vm.provider 'vmware_appcatalyst' do |v|
+        v.cpus = node[:cpu]
+        v.memory = node[:mem]
+      end
+
+			config.vm.hostname = node[:hostname]
+			config.vm.network "private_network", :ip => node[:ip]
+
+			config.vm.provision "puppet" do |puppet|
+				puppet.options = ""
+				puppet.module_path = "modules"
+				puppet.facter = {
+					"vagrant" => "1",
+					"fqdn" => node[:hostname],
+					"platform"=>"vmware_appcatalyst"
+				}
+
+				# Set the temp directory name for an error in Vagrant 1.4.1
+				begin
+					puppet.temp_dir = "/tmp/vagrant-puppet"
+				rescue
+				end
+			end
+		end
+	end
+end

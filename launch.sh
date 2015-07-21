@@ -56,6 +56,7 @@ vagrant destroy -f $*
 IS_AWS=`grep vm.box Vagrantfile | grep dummy | wc -l`
 IS_OS=`grep vm.box Vagrantfile | grep dummyOS | wc -l`
 IS_VCENTER=`grep vm.provider Vagrantfile |head -n1| grep vcenter | wc -l`
+IS_APPCATALYST=`grep vm.provider Vagrantfile |head -n1| grep vmware_appcatalyst | wc -l`
 
 if [ $IS_AWS -eq 1 ]
 then
@@ -75,6 +76,12 @@ then
     CHECKSTRING='running ('
 fi
 
+if [ $IS_APPCATALYST -eq 1 ]
+then
+    PROVIDER='vmware_appcatalyst'
+    CHECKSTRING='running ('
+fi
+
 vagrant up --no-provision --provider=$PROVIDER $*
 sleep 5
 
@@ -91,6 +98,12 @@ then
 fi
 
 if [ $IS_VCENTER  -eq 1 ]
+then
+    set_hostfile
+
+fi
+
+if [ $IS_APPCATALYST  -eq 1 ]
 then
     set_hostfile
 
