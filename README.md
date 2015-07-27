@@ -90,7 +90,7 @@ Once you are finished with the instances
     
         $ localhost> nohup appcatalyst-daemon > ~/appcatalyst-daemon.log &
         $ localhost> vagrant plugin install vagrant-vmware-appcatalyst
-         localhost> git clone https://github.com/continuent/continuent-vagrant.git
+        $ localhost> git clone https://github.com/continuent/continuent-vagrant.git
         $ localhost> cd continuent-vagrant
         $ localhost> git submodule update --init
         $ localhost> cp ~/continuent-tungsten-4.0.1-2862603.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
