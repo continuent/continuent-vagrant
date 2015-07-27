@@ -15,12 +15,12 @@ This process will start a 3-node cluster using 64-bit Virtualbox images.
     $ localhost> git submodule update --init
     
     # If using an RPM Build
-    $ localhost> cp ~/continuent-tungsten-4.0.0-2667425.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
+    $ localhost> cp ~/continuent-tungsten-4.0.1-2862603.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
     
     # ..or, if using the TAR Build
-    $ localhost> cp ~/continuent-tungsten-4.0.0-2667425.tar.gz ./downloads
+    $ localhost> cp ~/continuent-tungsten-4.0.1-2862603.tar.gz ./downloads
     $ localhost> vi manifests/default.pp
-    # Change the clusterRPM line to: $clusterRPM = "/vagrant/downloads/continuent-tungsten-4.0.0-2667425.tar.gz"
+    # Change the clusterRPM line to: $clusterRPM = "/vagrant/downloads/continuent-tungsten-4.0.1-2862603.tar.gz"
     
     $ localhost> cp examples/Vagrantfile.3.vbox ./Vagrantfile
     $ localhost> cp examples/STD/default.pp ./manifests/
@@ -43,7 +43,7 @@ Prior to starting, make sure the 'default' security group allows SSH access from
     $ localhost> git clone https://github.com/continuent/continuent-vagrant.git
     $ localhost> cd continuent-vagrant
     $ localhost> git submodule update --init
-    $ localhost> cp ~/continuent-tungsten-2.0.4-589.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
+    $ localhost> cp ~/continuent-tungsten-4.0.1-2862603.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
     $ localhost> cp examples/Vagrantfile.3.ec2 ./Vagrantfile
     $ localhost> cp examples/STD/default.pp ./manifests/
 
@@ -70,7 +70,7 @@ Once you are finished with the instances
         $ localhost> git clone https://github.com/continuent/continuent-vagrant.git
         $ localhost> cd continuent-vagrant
         $ localhost> git submodule update --init
-        $ localhost> cp ~/continuent-tungsten-2.0.4-589.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
+        $ localhost> cp ~/continuent-tungsten-4.0.1-2862603.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
         $ localhost> cp examples/Vagrantfile.3.vcenter ./Vagrantfile
         $ localhost> cp examples/STD/default.pp ./manifests/
 
@@ -83,8 +83,28 @@ Once you are finished with the instances
     Once you are finished with the instances
 
         $ localhost> vagrant destroy -f
+        
+## Using VMware AppCatalyst
 
+    This process will start a 3-node cluster using AppCatalyst. Before starting you will need to download and install AppCatalyst from https://www.vmware.com/go/downloadappcatalyst.
+    
+        $ localhost> nohup appcatalyst-daemon > ~/appcatalyst-daemon.log &
+        $ localhost> vagrant plugin install vagrant-vmware-appcatalyst
+         localhost> git clone https://github.com/continuent/continuent-vagrant.git
+        $ localhost> cd continuent-vagrant
+        $ localhost> git submodule update --init
+        $ localhost> cp ~/continuent-tungsten-4.0.1-2862603.noarch.rpm ./downloads/continuent-tungsten-latest.noarch.rpm
+        $ localhost> cp examples/Vagrantfile.3.appcatalyst ./Vagrantfile
+        $ localhost> cp examples/STD/default.pp ./manifests/
+        
+    The launch.sh script will start the images and install the software.
 
+        $ localhost> ./launch.sh
+
+    Once you are finished with the instances
+
+        $ localhost> vagrant destroy -f
+        $ localhost> killall -9 appcatalyst-daemon
 
 # Using the vagrant-cachier plugin
 

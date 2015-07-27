@@ -59,19 +59,16 @@ echo $HOSTS | parallel_provision
 if [ $IS_OS -eq 1 ]
 then
     set_hostfile
-
 fi
 
 if [ $IS_VCENTER  -eq 1 ]
 then
     set_hostfile
-
 fi
 
 if [ $IS_APPCATALYST  -eq 1 ]
 then
     set_hostfile
-
 fi
 
 IFS=$OIFS

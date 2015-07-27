@@ -94,19 +94,16 @@ fi
 if [ $IS_OS -eq 1 ]
 then
     set_hostfile
-
 fi
 
 if [ $IS_VCENTER  -eq 1 ]
 then
     set_hostfile
-
 fi
 
 if [ $IS_APPCATALYST  -eq 1 ]
 then
     set_hostfile
-
 fi
 
 echo $HOSTS | parallel_provision
