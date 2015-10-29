@@ -1,4 +1,4 @@
-# Copyright (C) 2014 Continuent, Inc.
+# Copyright (C) 2015 VMWare Inc
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License.  You may obtain
@@ -11,44 +11,25 @@
 # WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
 # License for the specific language governing permissions and limitations
 # under the License.
+$oracleRPM = "/vagrant/downloads/vmware-continuent-replication-oracle-source-latest.rpm"
 if $fqdn == "db1" {
-	$installMysql = true
-	
-	$clusterData = {
-		"mo" => {
-			"topology" => "master-slave",
-			"master" => "db1",
-			"members" => "db1,db2",
-			"enable-heterogenous-service" => "true",
-		},
-	}
-} else {
 	$installMysql = false
-	
-	class { 'oracle' :
-	} -> 
-	Class['tungsten']
-	
-	$clusterData = {
-		"mo" => {
-			"topology" => "master-slave",
-			"master" => "db1",
-			"members" => "db1,db2",
-			"enable-heterogenous-service" => "true",
-			"datasource-type" => "oracle",
-			"datasource-oracle-service" => "ORCL",
-			"replication-user" => "tungsten_mo",
-			"replication-password" => "secret",
-		},
-	}
+	$installOracle= true
 }
+if $fqdn == "db2" {
+	$installMysql = true
+	$installOracle= false
+}
+
 
 class { "continuent_vagrant" : }
 
 class { 'tungsten' :
 	installSSHKeys => true,
 	installMysql => $installMysql,
-	replicatorRepo => nightly,
-	installReplicatorSoftware => true,
-	clusterData => $clusterData,
+	installOracle => $installOracle,
+	oracleVersion => 11,
+	redoReaderTopology => 'OracleToMySQL'
+	overrideOptionsMysqld=>{'binlog-format'=>'row'},
+	installRedoReaderSoftware => '$oracleRPM
 }
