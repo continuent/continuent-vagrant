@@ -20,6 +20,6 @@ class { 'tungsten' :
 	installMysql => false,
 	installOracle => true,
 	oracleVersion => 11,
-	redoReaderTopology => 'OracleToOracle'
+	redoReaderTopology => 'OracleToOracle',
 	installRedoReaderSoftware => $oracleRPM
 }

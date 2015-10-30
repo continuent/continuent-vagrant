@@ -29,7 +29,7 @@ class { 'tungsten' :
 	installMysql => $installMysql,
 	installOracle => $installOracle,
 	oracleVersion => 11,
-	redoReaderTopology => 'OracleToMySQL'
+	redoReaderTopology => 'OracleToMySQL',
 	overrideOptionsMysqld=>{'binlog-format'=>'row'},
 	installRedoReaderSoftware => '$oracleRPM
 }
