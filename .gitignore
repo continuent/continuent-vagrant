@@ -5,6 +5,7 @@ continuent-tungsten*
 tungsten-replicator*
 Vagrantfile
 downloads/*
+hostfile.txt
 manifests/default.pp
 
 .idea/continuent-vagrant.iml
