@@ -129,7 +129,7 @@ on Centos/Redhat install
 
 ## Using a windows client
 
-Enusre you local git client in correctly setup not to translate Unix CR and LF characters. If it does it breaks the puppet install.
+Ensure your local git client is correctly setup to not translate Unix CR and LF characters. If it does it breaks the puppet install.
 
 Replace launch.sh in the setup steps with vagrant up
 
