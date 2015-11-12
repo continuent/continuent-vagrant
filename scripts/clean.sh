@@ -58,6 +58,12 @@ then
 		mysql -BN -e 'RESET MASTER' >/dev/null 2>&1
 		rm -f /etc/tungsten/tungsten.ini > /dev/null 2>&1
 	fi
+	
+	id oracle >/dev/null 2>&1
+	if [ "$?" == "0" ]
+	then
+		sudo -i -u oracle sqlplus / as sysdba @/vagrant/scripts/cleanup-oracle.sql > /dev/null
+	fi
 else
 	if [ "$1" == "-y" ]
 	then
