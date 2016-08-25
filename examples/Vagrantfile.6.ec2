@@ -17,7 +17,10 @@ Vagrant.configure("2") do |vcfg|
 		vcfg.vm.define name do |config|
 			config.vm.box = "dummy"
 			config.ssh.pty = true
-				config.puppet_install.puppet_version = "3.7.3"
+
+			# set this value to have Vagrant install a specific version of Puppet using the "vagrant-puppet-install" plugin
+			# yum now installs Puppet version 3.7.4 (see below), so leave this commented out unless you have a specific need for a different version of Puppet
+			#config.puppet_install.puppet_version = "3.7.4"
 
 			config.vm.provider :aws do |aws, override|
 				aws.instance_type = "m3.large"
@@ -64,11 +67,11 @@ Vagrant.configure("2") do |vcfg|
 
 				# Disable the requiretty setting and install puppet
 				aws.user_data = "#!/bin/bash
-                				hostname #{name.to_s()}
-                				echo -e '[main] \nenabled=0' > /etc/yum/pluginconf.d/priorities.conf
-                				perl -pi -e 's/^Defaults[ ]*requiretty/#Defaults requiretty/' /etc/sudoers
-                				yum install -y ruby18 rubygems18 rubygem18-aws-sdk ruby18-devel rubygem20-aws-sdk\nalternatives --set ruby /usr/bin/ruby1.8
-                				#{timer}"
+				hostname #{name.to_s()}
+				echo -e '[main] \nenabled=0' > /etc/yum/pluginconf.d/priorities.conf
+				perl -pi -e 's/^Defaults[ ]*requiretty/#Defaults requiretty/' /etc/sudoers
+				yum install -y rubygem20-aws-sdk puppet3
+				#{timer}"
 
 				aws.block_device_mapping = [
 					{
